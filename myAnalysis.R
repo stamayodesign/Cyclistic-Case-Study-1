@@ -190,6 +190,51 @@ feb_2022_q2_member_df <- create_df_num_of_trips_q(feb_2022_clean,"member",3)
 feb_2022_bike_type_Casual_df <- find_bike_data(feb_2022_clean$rideable_type,feb_2022_clean$member_casual,"casual",feb_2022_clean$day_of_week)
 feb_2022_bike_type_Member_df <- find_bike_data(feb_2022_clean$rideable_type,feb_2022_clean$member_casual,"member",feb_2022_clean$day_of_week)
 
+
+# MARCH
+mar_2022_raw <- read_csv("202203-divvy-tripdata_Prepped.csv")
+mar_2022_clean <- remove_outliers(mar_2022_raw)
+mar_2022_casual_df <- create_df_num_of_trips(mar_2022_clean,"casual")
+mar_2022_member_df <- create_df_num_of_trips(mar_2022_clean,"member")
+mar_2022_qAll_casual_df <- create_df_q_data(mar_2022_clean,"casual")
+mar_2022_qAll_member_df <- create_df_q_data(mar_2022_clean,"member")
+mar_2022_q2_casual_df <- create_df_num_of_trips_q(mar_2022_clean,"casual",3)
+mar_2022_q2_member_df <- create_df_num_of_trips_q(mar_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+mar_2022_bike_type_Casual_df <- find_bike_data(mar_2022_clean$rideable_type,mar_2022_clean$member_casual,"casual",mar_2022_clean$day_of_week)
+mar_2022_bike_type_Member_df <- find_bike_data(mar_2022_clean$rideable_type,mar_2022_clean$member_casual,"member",mar_2022_clean$day_of_week)
+
+# APRIL
+apr_2022_raw <- read_csv("202204-divvy-tripdata_Prepped.csv")
+apr_2022_clean <- remove_outliers(apr_2022_raw)
+apr_2022_casual_df <- create_df_num_of_trips(apr_2022_clean,"casual")
+apr_2022_member_df <- create_df_num_of_trips(apr_2022_clean,"member")
+apr_2022_qAll_casual_df <- create_df_q_data(apr_2022_clean,"casual")
+apr_2022_qAll_member_df <- create_df_q_data(apr_2022_clean,"member")
+apr_2022_q2_casual_df <- create_df_num_of_trips_q(apr_2022_clean,"casual",3)
+apr_2022_q2_member_df <- create_df_num_of_trips_q(apr_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+apr_2022_bike_type_Casual_df <- find_bike_data(apr_2022_clean$rideable_type,apr_2022_clean$member_casual,"casual",apr_2022_clean$day_of_week)
+apr_2022_bike_type_Member_df <- find_bike_data(apr_2022_clean$rideable_type,apr_2022_clean$member_casual,"member",apr_2022_clean$day_of_week)
+
+
+# MAY
+may_2022_raw <- read_csv("202205-divvy-tripdata_Prepped.csv")
+may_2022_clean <- remove_outliers(may_2022_raw)
+may_2022_casual_df <- create_df_num_of_trips(may_2022_clean,"casual")
+may_2022_member_df <- create_df_num_of_trips(may_2022_clean,"member")
+may_2022_qAll_casual_df <- create_df_q_data(may_2022_clean,"casual")
+may_2022_qAll_member_df <- create_df_q_data(may_2022_clean,"member")
+may_2022_q2_casual_df <- create_df_num_of_trips_q(may_2022_clean,"casual",3)
+may_2022_q2_member_df <- create_df_num_of_trips_q(may_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+may_2022_bike_type_Casual_df <- find_bike_data(may_2022_clean$rideable_type,may_2022_clean$member_casual,"casual",may_2022_clean$day_of_week)
+may_2022_bike_type_Member_df <- find_bike_data(may_2022_clean$rideable_type,may_2022_clean$member_casual,"member",may_2022_clean$day_of_week)
+
+
 # JUNE
 jun_2022_raw <- read_csv("202206-divvy-tripdata_Prepped.csv")
 jun_2022_clean <- remove_outliers(jun_2022_raw)
@@ -205,3 +250,153 @@ jun_2022_bike_type_Casual_df <- find_bike_data(jun_2022_clean$rideable_type,jun_
 jun_2022_bike_type_Member_df <- find_bike_data(jun_2022_clean$rideable_type,jun_2022_clean$member_casual,"member",jun_2022_clean$day_of_week)
 
 
+# JULY
+jul_2022_raw <- read_csv("202207-divvy-tripdata_Prepped.csv")
+jul_2022_clean <- remove_outliers(jul_2022_raw)
+jul_2022_casual_df <- create_df_num_of_trips(jul_2022_clean,"casual")
+jul_2022_member_df <- create_df_num_of_trips(jul_2022_clean,"member")
+jul_2022_qAll_casual_df <- create_df_q_data(jul_2022_clean,"casual")
+jul_2022_qAll_member_df <- create_df_q_data(jul_2022_clean,"member")
+jul_2022_q2_casual_df <- create_df_num_of_trips_q(jul_2022_clean,"casual",3)
+jul_2022_q2_member_df <- create_df_num_of_trips_q(jul_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+jul_2022_bike_type_Casual_df <- find_bike_data(jul_2022_clean$rideable_type,jul_2022_clean$member_casual,"casual",jul_2022_clean$day_of_week)
+jul_2022_bike_type_Member_df <- find_bike_data(jul_2022_clean$rideable_type,jul_2022_clean$member_casual,"member",jul_2022_clean$day_of_week)
+
+
+# AUGUST
+aug_2022_raw <- read_csv("202208-divvy-tripdata_Prepped.csv")
+aug_2022_clean <- remove_outliers(aug_2022_raw)
+aug_2022_casual_df <- create_df_num_of_trips(aug_2022_clean,"casual")
+aug_2022_member_df <- create_df_num_of_trips(aug_2022_clean,"member")
+aug_2022_qAll_casual_df <- create_df_q_data(aug_2022_clean,"casual")
+aug_2022_qAll_member_df <- create_df_q_data(aug_2022_clean,"member")
+aug_2022_q2_casual_df <- create_df_num_of_trips_q(aug_2022_clean,"casual",3)
+aug_2022_q2_member_df <- create_df_num_of_trips_q(aug_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+aug_2022_bike_type_Casual_df <- find_bike_data(aug_2022_clean$rideable_type,aug_2022_clean$member_casual,"casual",aug_2022_clean$day_of_week)
+aug_2022_bike_type_Member_df <- find_bike_data(aug_2022_clean$rideable_type,aug_2022_clean$member_casual,"member",aug_2022_clean$day_of_week)
+
+
+# SEPTEMBER
+sep_2022_raw <- read_csv("202209-divvy-tripdata_Prepped.csv")
+sep_2022_clean <- remove_outliers(sep_2022_raw)
+sep_2022_casual_df <- create_df_num_of_trips(sep_2022_clean,"casual")
+sep_2022_member_df <- create_df_num_of_trips(sep_2022_clean,"member")
+sep_2022_qAll_casual_df <- create_df_q_data(sep_2022_clean,"casual")
+sep_2022_qAll_member_df <- create_df_q_data(sep_2022_clean,"member")
+sep_2022_q2_casual_df <- create_df_num_of_trips_q(sep_2022_clean,"casual",3)
+sep_2022_q2_member_df <- create_df_num_of_trips_q(sep_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+sep_2022_bike_type_Casual_df <- find_bike_data(sep_2022_clean$rideable_type,sep_2022_clean$member_casual,"casual",sep_2022_clean$day_of_week)
+sep_2022_bike_type_Member_df <- find_bike_data(sep_2022_clean$rideable_type,sep_2022_clean$member_casual,"member",sep_2022_clean$day_of_week)
+
+
+# OCTOBER
+oct_2022_raw <- read_csv("202210-divvy-tripdata_Prepped.csv")
+oct_2022_clean <- remove_outliers(oct_2022_raw)
+oct_2022_casual_df <- create_df_num_of_trips(oct_2022_clean,"casual")
+oct_2022_member_df <- create_df_num_of_trips(oct_2022_clean,"member")
+oct_2022_qAll_casual_df <- create_df_q_data(oct_2022_clean,"casual")
+oct_2022_qAll_member_df <- create_df_q_data(oct_2022_clean,"member")
+oct_2022_q2_casual_df <- create_df_num_of_trips_q(oct_2022_clean,"casual",3)
+oct_2022_q2_member_df <- create_df_num_of_trips_q(oct_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+oct_2022_bike_type_Casual_df <- find_bike_data(oct_2022_clean$rideable_type,oct_2022_clean$member_casual,"casual",oct_2022_clean$day_of_week)
+oct_2022_bike_type_Member_df <- find_bike_data(oct_2022_clean$rideable_type,oct_2022_clean$member_casual,"member",oct_2022_clean$day_of_week)
+
+
+# NOVEMBER
+nov_2022_raw <- read_csv("202211-divvy-tripdata_Prepped.csv")
+nov_2022_clean <- remove_outliers(nov_2022_raw)
+nov_2022_casual_df <- create_df_num_of_trips(nov_2022_clean,"casual")
+nov_2022_member_df <- create_df_num_of_trips(nov_2022_clean,"member")
+nov_2022_qAll_casual_df <- create_df_q_data(nov_2022_clean,"casual")
+nov_2022_qAll_member_df <- create_df_q_data(nov_2022_clean,"member")
+nov_2022_q2_casual_df <- create_df_num_of_trips_q(nov_2022_clean,"casual",3)
+nov_2022_q2_member_df <- create_df_num_of_trips_q(nov_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+nov_2022_bike_type_Casual_df <- find_bike_data(nov_2022_clean$rideable_type,nov_2022_clean$member_casual,"casual",nov_2022_clean$day_of_week)
+nov_2022_bike_type_Member_df <- find_bike_data(nov_2022_clean$rideable_type,nov_2022_clean$member_casual,"member",nov_2022_clean$day_of_week)
+
+# DECEMBER
+dec_2022_raw <- read_csv("202212-divvy-tripdata_Prepped.csv")
+dec_2022_clean <- remove_outliers(dec_2022_raw)
+dec_2022_casual_df <- create_df_num_of_trips(dec_2022_clean,"casual")
+dec_2022_member_df <- create_df_num_of_trips(dec_2022_clean,"member")
+dec_2022_qAll_casual_df <- create_df_q_data(dec_2022_clean,"casual")
+dec_2022_qAll_member_df <- create_df_q_data(dec_2022_clean,"member")
+dec_2022_q2_casual_df <- create_df_num_of_trips_q(dec_2022_clean,"casual",3)
+dec_2022_q2_member_df <- create_df_num_of_trips_q(dec_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+dec_2022_bike_type_Casual_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"casual",dec_2022_clean$day_of_week)
+dec_2022_bike_type_Member_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"member",dec_2022_clean$day_of_week)
+
+# 2022
+year_2022_clean <- rbind(jan_2022_clean, feb_2022_clean, mar_2022_clean, apr_2022_clean, 
+                         may_2022_clean, jun_2022_clean, jul_2022_clean, aug_2022_clean, 
+                         sep_2022_clean, oct_2022_clean, nov_2022_clean, dec_2022_clean)
+year_2022_casual_df <- create_df_num_of_trips(year_2022_clean,"casual")
+year_2022_member_df <- create_df_num_of_trips(year_2022_clean,"member")
+year_2022_qAll_casual_df <- create_df_q_data(year_2022_clean,"casual")
+year_2022_qAll_member_df <- create_df_q_data(year_2022_clean,"member")
+year_2022_q2_casual_df <- create_df_num_of_trips_q(year_2022_clean,"casual",3)
+year_2022_q2_member_df <- create_df_num_of_trips_q(year_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"casual",year_2022_clean$day_of_week)
+year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
+
+yearByMonth_2022_bike_type_Casual_df <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+  classic = c(
+    jan_2022_bike_type_Casual_df$Total[1],
+    feb_2022_bike_type_Casual_df$Total[1],
+    mar_2022_bike_type_Casual_df$Total[1],
+    apr_2022_bike_type_Casual_df$Total[1],
+    may_2022_bike_type_Casual_df$Total[1],
+    jun_2022_bike_type_Casual_df$Total[1],
+    jul_2022_bike_type_Casual_df$Total[1],
+    aug_2022_bike_type_Casual_df$Total[1],
+    sep_2022_bike_type_Casual_df$Total[1],
+    oct_2022_bike_type_Casual_df$Total[1],
+    nov_2022_bike_type_Casual_df$Total[1],
+    dec_2022_bike_type_Casual_df$Total[1]
+  ) ,
+  docked = c(
+    jan_2022_bike_type_Casual_df$Total[2],
+    feb_2022_bike_type_Casual_df$Total[2],
+    mar_2022_bike_type_Casual_df$Total[2],
+    apr_2022_bike_type_Casual_df$Total[2],
+    may_2022_bike_type_Casual_df$Total[2],
+    jun_2022_bike_type_Casual_df$Total[2],
+    jul_2022_bike_type_Casual_df$Total[2],
+    aug_2022_bike_type_Casual_df$Total[2],
+    sep_2022_bike_type_Casual_df$Total[2],
+    oct_2022_bike_type_Casual_df$Total[2],
+    nov_2022_bike_type_Casual_df$Total[2],
+    dec_2022_bike_type_Casual_df$Total[2]
+  ) ,
+  electric = c(
+    jan_2022_bike_type_Casual_df$Total[3],
+    feb_2022_bike_type_Casual_df$Total[3],
+    mar_2022_bike_type_Casual_df$Total[3],
+    apr_2022_bike_type_Casual_df$Total[3],
+    may_2022_bike_type_Casual_df$Total[3],
+    jun_2022_bike_type_Casual_df$Total[3],
+    jul_2022_bike_type_Casual_df$Total[3],
+    aug_2022_bike_type_Casual_df$Total[3],
+    sep_2022_bike_type_Casual_df$Total[3],
+    oct_2022_bike_type_Casual_df$Total[3],
+    nov_2022_bike_type_Casual_df$Total[3],
+    dec_2022_bike_type_Casual_df$Total[3]
+  )
+)
+ggplot(data=yearByMonth_2022_bike_type_Casual_df) +
+  geom_bar(mapping = aes(x=month,y=classic))
