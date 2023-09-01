@@ -4,8 +4,8 @@ library(ggplot2)  #helps visualize data
 library(scales) #helps manage scale of data
 library(tidyr)
 
-getwd() #displays your working directory
-setwd("/Users/soroc/Documents/_coursera/Google-Data-Analytics-Certificate/Capstone/Case Study 1/Prepared Data") #changes to directory with CSVs
+#getwd() #displays your working directory
+#setwd("/Users/soroc/Documents/_coursera/Google-Data-Analytics-Certificate/Capstone/Case Study 1/Prepared Data") #changes to directory with CSVs
 
 # FUNCTIONS #
 
@@ -37,6 +37,7 @@ create_df_q_data <- function(input_cleandata,input_MC){
   tmp_quantile_7 <- quantile(filter_mc_dow(input_cleandata,input_MC,7)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
   
   return <- data.frame(day_of_week = c("Sun","Mon","Tues","Wed","Thurs","Fri","Sat"),
+                       day_of_week_num = c(rep(1:7,3)),
                        Q1 = c(
                          tmp_quantile_1[2],
                          tmp_quantile_2[2],
@@ -436,7 +437,7 @@ days_of_the_week <- c("Sunday", "Monday", "Tuesday", "Wednesday",
                       "Thursday", "Friday", "Saturday")
 
 # Year 2022 Bike Popularity for Casual Customers
-ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+graph_year2022casual_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
   geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
   labs(title = "Year 2022 Bike Popularity - Casual",
        subtitle = "Amount of each bike used by Casual Customers",
@@ -614,7 +615,7 @@ year_2022_month_day_Casual_df <- data.frame(monthNum = rep(as.factor(c(1:12)),ea
                                             )
 
 # Year 2022 Bike Popularity for Casual Customers
-ggplot(data=year_2022_month_day_Casual_df,aes(x=dayNum,y=num_of_bike, fill = monthNum)) +
+graph_year2022casual_numOfBike_week_month <- ggplot(data=year_2022_month_day_Casual_df,aes(x=dayNum,y=num_of_bike, fill = monthNum)) +
   geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
   labs(title = "Year 2022 Bike Popularity - Casual",
        subtitle = "Amount of casual customer bike trips per Month",
@@ -630,3 +631,66 @@ ggplot(data=year_2022_month_day_Casual_df,aes(x=dayNum,y=num_of_bike, fill = mon
   theme(plot.title = element_text(size = 24),
         plot.subtitle = element_text(size = 14)
   )
+
+df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
+                                           monthNum = rep(as.factor(c(1:12)),2),
+                                           num_of_trips = c(sum(jan_2022_casual_df$num_of_trips),
+                                             sum(feb_2022_casual_df$num_of_trips),
+                                             sum(mar_2022_casual_df$num_of_trips),
+                                             sum(apr_2022_casual_df$num_of_trips),
+                                             sum(may_2022_casual_df$num_of_trips),
+                                             sum(jun_2022_casual_df$num_of_trips),
+                                             sum(jul_2022_casual_df$num_of_trips),
+                                             sum(aug_2022_casual_df$num_of_trips),
+                                             sum(sep_2022_casual_df$num_of_trips),
+                                             sum(oct_2022_casual_df$num_of_trips),
+                                             sum(nov_2022_casual_df$num_of_trips),
+                                             sum(dec_2022_casual_df$num_of_trips),
+                                             sum(jan_2022_member_df$num_of_trips),
+                                             sum(feb_2022_member_df$num_of_trips),
+                                             sum(mar_2022_member_df$num_of_trips),
+                                             sum(apr_2022_member_df$num_of_trips),
+                                             sum(may_2022_member_df$num_of_trips),
+                                             sum(jun_2022_member_df$num_of_trips),
+                                             sum(jul_2022_member_df$num_of_trips),
+                                             sum(aug_2022_member_df$num_of_trips),
+                                             sum(sep_2022_member_df$num_of_trips),
+                                             sum(oct_2022_member_df$num_of_trips),
+                                             sum(nov_2022_member_df$num_of_trips),
+                                             sum(dec_2022_member_df$num_of_trips)
+                                             )
+                                          )
+
+graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes(x=monthNum,y=num_of_trips, fill = customer_type)) +
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9))+
+  labs(title = "Year 2022 Customers' Trip Frequency",
+       subtitle = "Number of Trips per month",
+       x="Per Month",
+       y="Number of Trips (K*)",
+       caption="K stands for 1000") +
+  scale_fill_discrete(name="Customer") +
+  geom_text(aes(label = paste(c(floor(num_of_trips/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= 1,vjust=-.75,angle=-60) +
+  scale_y_continuous(limits = c(0,500000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_discrete(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+
+ggplot(data=year_2022_qAll_casual_df,aes(x=day_of_week_num,y=Q2))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "",
+       subtitle = "",
+       x="",
+       y="")+
+  scale_y_continuous(limits = c(0,2000) ,labels = label_number(suffix = "", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  ) 
