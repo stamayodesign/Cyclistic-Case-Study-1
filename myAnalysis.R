@@ -126,39 +126,33 @@ create_df_num_of_trips_q <- function(input_cleandata,input_MorC,input_q){
 # Function - Find Num of Bikes Used per day per type of user
 ## Writing a function to make finding bike values cleaner
 find_bike_data <- function(input_clean_data_rideable_type,input_clean_data_member_casual,memberOrCasual,input_clean_data_day_of_week){
-  return <- data.frame(rideable_type = c("classic","docked","electric"), Sunday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 1),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual  & input_clean_data_day_of_week == 1),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual  & input_clean_data_day_of_week == 1)),
-                       Monday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 2),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual  & input_clean_data_day_of_week == 2),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 2)),
-                       Tuesday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 3),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 3),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 3)),
-                       Wednesday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 4),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 4),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 4)),
-                       Thursday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 5),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 5),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 5)),
-                       Friday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 6),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 6),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 6)),
-                       Saturday =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 7),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 7),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual & input_clean_data_day_of_week == 7)),
-                       Total =
-                         c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual),
-                           sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual),
-                           sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual)
-                         ))
+  return <- data.frame(day_of_week = c("Sun","Mon","Tues","Wed","Thurs","Fri","Sat"),
+                       classic_bike = c(sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 1),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 2),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 3),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 4),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 5),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 6),
+                                        sum(input_clean_data_rideable_type == "classic_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 7)
+                                        ),
+                       docked_bike = c(sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 1),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 2),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 3),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 4),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 5),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 6),
+                                       sum(input_clean_data_rideable_type == "docked_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 7)
+                                       ),
+                       electric_bike = c(sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 1),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 2),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 3),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 4),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 5),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 6),
+                                         sum(input_clean_data_rideable_type == "electric_bike" & input_clean_data_member_casual==memberOrCasual& input_clean_data_day_of_week == 7)
+                                       )
+    
+  )
 }
 
 
@@ -398,5 +392,18 @@ yearByMonth_2022_bike_type_Casual_df <- data.frame(
     dec_2022_bike_type_Casual_df$Total[3]
   )
 )
-ggplot(data=yearByMonth_2022_bike_type_Casual_df) +
-  geom_bar(mapping = aes(x=month,y=classic))
+ggplot(data=yearByMonth_2022_bike_type_Casual_df,aes(x=month,y=classic)) +
+  geom_bar(stat = "identity",width=0.4)
+
+ggplot(data=jan_2022_bike_type_Casual_df,aes(x=day_of_week,y=classic_bike)) +
+  geom_bar(stat = "identity",width=0.5)
+
+jan_2022_bike_type_casual_subgrouped_df <- data.frame(biketype = rep(c("classic","docked","electric"),each=7),
+                                                      day_of_week = rep(jan_2022_bike_type_Casual_df$day_of_week,3),
+                                                      num_of_bike = c(jan_2022_bike_type_Casual_df$classic_bike,
+                                                                      jan_2022_bike_type_Casual_df$docked_bike,
+                                                                      jan_2022_bike_type_Casual_df$electric_bike)
+                                                      )
+
+ggplot(data=jan_2022_bike_type_casual_subgrouped_df,aes(fill = biketype,x=day_of_week,y=num_of_bike)) +
+  geom_bar(stat = "identity",width=0.5,position=position_dodge(width=0.9))
