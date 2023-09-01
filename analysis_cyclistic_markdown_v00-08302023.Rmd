@@ -1,0 +1,62 @@
+---
+title: "Case Study 1 - Cyclistic"
+author: "Steve Tamayo"
+date: "2023-08-31"
+output: html_document
+---
+
+#### Install required packages
+```{r, echo=FALSE}
+library(tidyverse)  #helps wrangle data
+library(lubridate)  #helps wrangle date attributes
+library(ggplot2)  #helps visualize data
+
+```
+
+# STEP 1: Collect Data
+Upload cyclistic data sets for the year. These sets were prepared in excel.
+``` {r}
+
+getwd() #displays your working directory
+setwd("/Users/soroc/Documents/_coursera/Google-Data-Analytics-Certificate/Capstone/Case Study 1/Prepared Data") 
+jan_2022 <- read_csv("202201-divvy-tripdata_Prepped.csv")
+feb_2022 <- read_csv("202202-divvy-tripdata_Prepped.csv")
+mar_2022 <- read_csv("202203-divvy-tripdata_Prepped.csv")
+apr_2022 <- read_csv("202204-divvy-tripdata_Prepped.csv")
+may_2022 <- read_csv("202205-divvy-tripdata_Prepped.csv")
+jun_2022 <- read_csv("202206-divvy-tripdata_Prepped.csv")
+jul_2022 <- read_csv("202207-divvy-tripdata_Prepped.csv")
+aug_2022 <- read_csv("202208-divvy-tripdata_Prepped.csv")
+sep_2022 <- read_csv("202209-divvy-tripdata_Prepped.csv")
+oct_2022 <- read_csv("202210-divvy-tripdata_Prepped.csv")
+nov_2022 <- read_csv("202211-divvy-tripdata_Prepped.csv")
+dec_2022 <- read_csv("202212-divvy-tripdata_Prepped.csv")
+```
+
+<!--
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+-->
