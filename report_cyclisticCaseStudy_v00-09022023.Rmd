@@ -1,0 +1,47 @@
+---
+title: "Cyclistic Case Study"
+author: "Steve Tamayo"
+date: "2023-09-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This is a report for the Case Study 1 of the Coursera Google Data Analytics Capstone.
+
+## Business Task Statement
+
+#### "How do annual members and casual riders use Cyclistic bikes differently?"
+Cyclistic is a (fictional) bike-share company in Chicago. In order to maximize the number of annual memberships, the team wants to understand the difference between casual riders (also referred to as "casual") and annual members (also referred to as "member").
+
+## Table of Contents
+Data Sources
+Cleaning Documentation
+Summary of Analysis
+Supporting Visualizations
+Recommendations
+
+## Data Sources
+The data is downloaded from <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">this website</a>. The data has been provided according to the Divvy Data License Agreement. You can read more on <a href="https://divvybikes.com/system-data">their website</a>.
+
+For this report, I have chosen to look at a complete year of data. As of this writing this report, the latest full year of data is from 2022.
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
