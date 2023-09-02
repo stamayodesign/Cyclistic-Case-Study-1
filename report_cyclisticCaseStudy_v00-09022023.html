@@ -374,16 +374,58 @@ annual members (also referred to as “member”).</p>
 </div>
 </div>
 <div id="table-of-contents" class="section level2">
-<h2>Table of Contents</h2>
-<p>Data Sources Cleaning Documentation Summary of Analysis Supporting
-Visualizations Recommendations</p>
+<h2><a name="toc"></a>Table of Contents</h2>
+<p><a href="#ptA">A. Data Sources</a></br> <a href="#ptB">B. Cleaning
+Documentation</a></br> Summary of Analysis Supporting Visualizations
+Recommendations</p>
 </div>
-<div id="data-sources" class="section level2">
-<h2>Data Sources</h2>
+<div id="a.-data-sources" class="section level2">
+<h2><a name="ptA"></a>A. Data Sources</h2>
 <p>The data is downloaded from
 <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">this
-website</a>. The data has been made available by Motivate International
-Inc.</p>
+website</a> as zip files. The data has been provided according to the
+Divvy Data License Agreement. You can read more on
+<a href="https://divvybikes.com/system-data">their website</a>.</p>
+<p>For this report, I have chosen to look at a complete year of data. As
+of this writing this report, the latest full year of data is from 2022.
+The</p>
+<p>The raw data for each month in 2022 was downloaded and placed in a
+folder labeled “Raw Data” in the project main folder.</p>
+<p><a href="#toc">Jump to Top</a><br /></p>
+</div>
+<div id="b.-cleaning-documentation" class="section level2">
+<h2><a name="ptB"></a>B. Cleaning Documentation</h2>
+<p>After downloading the zip files, I unzipped the csv files and copied
+them to a new folder labeled CSV. I further copied these files to a file
+labeled “Prepared Data” to prepare them processing.</p>
+<p>Given the sizes of some of these files, spreadsheets was ruled out to
+handle the data as the June, July, and August reports were unable to be
+opened. However, they were processed in excel and then R.</p>
+<p>For all 12 CSVs, the following process was conducted:</p>
+<ol style="list-style-type: decimal">
+<li>The file was opened in Excel.</li>
+<li>Columns I, J, K, and L were removed. These columns were determined
+to not be relevant to this business task.</li>
+<li>A new column J was labeled “length_of_trip”</li>
+<li>J2 was filled with “=D2-C2” to get the length of the trip. This was
+then applied to all rows.</li>
+<li>A new column K was labeled “day_of_week”</li>
+<li>K2 was filled with “=WEEKDAY(C2,1)” to get the day the trip started.
+The “1” signifies that the numbering starts on “Sunday” with “1” and
+ends with “Saturday” with “7”. This was then applied to all rows.</li>
+<li>Column K was then Formatted with the Custom h:mm:ss to get the
+format to where it was needed for analysis.</li>
+<li>The sheet was then sorted “smallest to largest” to determine if
+there were any lengths that were in the negatives.</li>
+<li>The rows that had negatives were adjusted by switching their start
+and end times. Double check that the J column was still “end-start”</li>
+<li>The sheet was then resorted by “started_at” (column C)</li>
+<li>Columns J and K were then copied then pasted with just the
+values.</li>
+<li>Finally, the CSV was renamed, appending “_Prepped” to the original
+file name. Example: “202201-divvy0tripdata” became
+“202201-divvy0tripdata_Prepped”</li>
+</ol>
 <pre class="r"><code>summary(cars)</code></pre>
 <pre><code>##      speed           dist       
 ##  Min.   : 4.0   Min.   :  2.00  
