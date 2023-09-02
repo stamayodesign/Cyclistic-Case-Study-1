@@ -376,8 +376,8 @@ annual members (also referred to as “member”).</p>
 <div id="table-of-contents" class="section level2">
 <h2><a name="toc"></a>Table of Contents</h2>
 <p><a href="#ptA">A. Data Sources</a></br> <a href="#ptB">B. Cleaning
-Documentation</a></br> Summary of Analysis Supporting Visualizations
-Recommendations</p>
+Documentation</a></br> <a href="#ptC">C. Analysis</a></br> <a href="#ptD">D. Supporting Visualizations</a></br> <a href="#ptE">E.
+Recommendations</a></br> <a href="#ptF">F. Appendix</a></br></p>
 </div>
 <div id="a.-data-sources" class="section level2">
 <h2><a name="ptA"></a>A. Data Sources</h2>
@@ -395,6 +395,8 @@ folder labeled “Raw Data” in the project main folder.</p>
 </div>
 <div id="b.-cleaning-documentation" class="section level2">
 <h2><a name="ptB"></a>B. Cleaning Documentation</h2>
+<div id="excel-cleaning" class="section level3">
+<h3>Excel Cleaning</h3>
 <p>After downloading the zip files, I unzipped the csv files and copied
 them to a new folder labeled CSV. I further copied these files to a file
 labeled “Prepared Data” to prepare them processing.</p>
@@ -426,14 +428,507 @@ values.</li>
 file name. Example: “202201-divvy0tripdata” became
 “202201-divvy0tripdata_Prepped”</li>
 </ol>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<p>Following those 12 steps for the 12 CSVs, I loaded them into a new
+RStudio project.</p>
+<pre class="r"><code>jan_2022 &lt;- read_csv(&quot;202201-divvy-tripdata_Prepped.csv&quot;)
+feb_2022 &lt;- read_csv(&quot;202202-divvy-tripdata_Prepped.csv&quot;)
+mar_2022 &lt;- read_csv(&quot;202203-divvy-tripdata_Prepped.csv&quot;)
+apr_2022 &lt;- read_csv(&quot;202204-divvy-tripdata_Prepped.csv&quot;)
+may_2022 &lt;- read_csv(&quot;202205-divvy-tripdata_Prepped.csv&quot;)
+jun_2022 &lt;- read_csv(&quot;202206-divvy-tripdata_Prepped.csv&quot;)
+jul_2022 &lt;- read_csv(&quot;202207-divvy-tripdata_Prepped.csv&quot;)
+aug_2022 &lt;- read_csv(&quot;202208-divvy-tripdata_Prepped.csv&quot;)
+sep_2022 &lt;- read_csv(&quot;202209-divvy-tripdata_Prepped.csv&quot;)
+oct_2022 &lt;- read_csv(&quot;202210-divvy-tripdata_Prepped.csv&quot;)
+nov_2022 &lt;- read_csv(&quot;202211-divvy-tripdata_Prepped.csv&quot;)
+dec_2022 &lt;- read_csv(&quot;202212-divvy-tripdata_Prepped.csv&quot;)</code></pre>
+</div>
+<div id="r-cleaning" class="section level3">
+<h3>R Cleaning</h3>
+<p>Upon loading the CSVs into R Studio, I came across a problem. Certain
+values of “length_of_trip” were being converted to N/A’s. Investigating
+revealed that these values were not converting into the ISO8601 date
+format R was expecting. Looking further into the CSVs in Excel, these
+trip lengths were over a week long and therefore were determined to be
+outliers. Additionally there were a number of trips that had 0 length. I
+conducted additional cleaning in R by creating the following
+function:</p>
+<pre class="r"><code>## Removes N/A, Trips with 0 length, and assigns the length of trip to a format accepted in R
+remove_outliers = function(input_dataframe){
+  tmp_df &lt;- drop_na(input_dataframe,length_of_trip)
+  tmp_df2 &lt;- cbind(tmp_df,length_of_trip_r = as.POSIXct(tmp_df$length_of_trip,format=&quot;%H:%M:%S&quot;))
+  return &lt;- subset(tmp_df2,length_of_trip_r &gt; 0)
+}</code></pre>
+<p>This function was then applied to each loaded file and assigned a new
+variable.</p>
+<pre class="r"><code>jan_2022_clean &lt;- remove_outliers(jan_2022)
+feb_2022_clean &lt;- remove_outliers(feb_2022)
+mar_2022_clean &lt;- remove_outliers(mar_2022)
+apr_2022_clean &lt;- remove_outliers(apr_2022)
+may_2022_clean &lt;- remove_outliers(may_2022)
+jun_2022_clean &lt;- remove_outliers(jun_2022)
+jul_2022_clean &lt;- remove_outliers(jul_2022)
+aug_2022_clean &lt;- remove_outliers(aug_2022)
+sep_2022_clean &lt;- remove_outliers(sep_2022)
+oct_2022_clean &lt;- remove_outliers(oct_2022)
+nov_2022_clean &lt;- remove_outliers(nov_2022)
+dec_2022_clean &lt;- remove_outliers(dec_2022)</code></pre>
+</div>
+</div>
+<div id="c.-analysis" class="section level2">
+<h2><a name="ptC"></a>C. Analysis</h2>
+<p><a name="Ref1"></a> Now that the data is cleaned, it was time to
+aggregate the data into something more manageable. I created several
+functions to help with this process. The full code can be found in the
+<a href="#Appx1">Appendix here</a>.</p>
+<p><a name="Ref2"></a> These functions were then able to be applied to all
+of the clean data. Code is include in the <a href="#Appx2">Appendix
+here</a>.</p>
+<p>The new tables display the following for each month (Displaying
+January only):</p>
+<p>Number of trips for each month by member status and bike_type (Casual
+&amp; Member are separate)</p>
+<p>#####Casual</p>
+<pre class="r"><code>kable(jan_2022_bike_type_Casual_df,caption = &quot;Number of Trips Jan - Casual&quot;)</code></pre>
+<table>
+<caption>Number of Trips Jan - Casual</caption>
+<thead>
+<tr class="header">
+<th align="left">day_of_week</th>
+<th align="right">classic_bike</th>
+<th align="right">docked_bike</th>
+<th align="right">electric_bike</th>
+<th align="right">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sun</td>
+<td align="right">943</td>
+<td align="right">161</td>
+<td align="right">1383</td>
+<td align="right">2487</td>
+</tr>
+<tr class="even">
+<td align="left">Mon</td>
+<td align="right">861</td>
+<td align="right">94</td>
+<td align="right">1432</td>
+<td align="right">2387</td>
+</tr>
+<tr class="odd">
+<td align="left">Tues</td>
+<td align="right">818</td>
+<td align="right">98</td>
+<td align="right">1455</td>
+<td align="right">2371</td>
+</tr>
+<tr class="even">
+<td align="left">Wed</td>
+<td align="right">869</td>
+<td align="right">121</td>
+<td align="right">1348</td>
+<td align="right">2338</td>
+</tr>
+<tr class="odd">
+<td align="left">Thurs</td>
+<td align="right">928</td>
+<td align="right">104</td>
+<td align="right">1477</td>
+<td align="right">2509</td>
+</tr>
+<tr class="even">
+<td align="left">Fri</td>
+<td align="right">962</td>
+<td align="right">114</td>
+<td align="right">1340</td>
+<td align="right">2416</td>
+</tr>
+<tr class="odd">
+<td align="left">Sat</td>
+<td align="right">1552</td>
+<td align="right">257</td>
+<td align="right">1934</td>
+<td align="right">3743</td>
+</tr>
+</tbody>
+</table>
+<p>#####Member</p>
+<pre class="r"><code>kable(jan_2022_bike_type_Member_df,caption = &quot;Number of Trips Jan - Member&quot;)</code></pre>
+<table>
+<caption>Number of Trips Jan - Member</caption>
+<thead>
+<tr class="header">
+<th align="left">day_of_week</th>
+<th align="right">classic_bike</th>
+<th align="right">docked_bike</th>
+<th align="right">electric_bike</th>
+<th align="right">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sun</td>
+<td align="right">4830</td>
+<td align="right">0</td>
+<td align="right">4074</td>
+<td align="right">8904</td>
+</tr>
+<tr class="even">
+<td align="left">Mon</td>
+<td align="right">7367</td>
+<td align="right">0</td>
+<td align="right">5880</td>
+<td align="right">13247</td>
+</tr>
+<tr class="odd">
+<td align="left">Tues</td>
+<td align="right">7593</td>
+<td align="right">0</td>
+<td align="right">6014</td>
+<td align="right">13607</td>
+</tr>
+<tr class="even">
+<td align="left">Wed</td>
+<td align="right">7525</td>
+<td align="right">0</td>
+<td align="right">5134</td>
+<td align="right">12659</td>
+</tr>
+<tr class="odd">
+<td align="left">Thurs</td>
+<td align="right">7971</td>
+<td align="right">0</td>
+<td align="right">5886</td>
+<td align="right">13857</td>
+</tr>
+<tr class="even">
+<td align="left">Fri</td>
+<td align="right">6561</td>
+<td align="right">0</td>
+<td align="right">4678</td>
+<td align="right">11239</td>
+</tr>
+<tr class="odd">
+<td align="left">Sat</td>
+<td align="right">5886</td>
+<td align="right">0</td>
+<td align="right">4962</td>
+<td align="right">10848</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="f.-appendix" class="section level2">
+<h2><a name="ptF"></a>F. Appendix</h2>
+<div id="bulky-code" class="section level3">
+<h3>Bulky Code:</h3>
+<p>This section contains code mentioned in the report. Code here will
+not evaluate.</p>
+<div id="anaylsis-functions" class="section level4">
+<h4><a name="Appx1"></a>Anaylsis Functions</h4>
+<p><a href="#Ref1">Jump to report this is used</a></p>
+<pre class="r"><code># Function - Filters member status and day of the week
+filter_mc_dow = function(input_cleandata,input_MC,input_dow){
+  return &lt;- subset(select(input_cleandata, ride_id,rideable_type,length_of_trip,day_of_week,member_casual,length_of_trip_r),
+                   member_casual==input_MC &amp; day_of_week==input_dow)
+}
+
+# Function - Handle Quantile data
+## Get all Quantile data and put it into a dataframe
+create_df_q_data &lt;- function(input_cleandata,input_MC){
+  
+  # Get quantile for each day
+  tmp_quantile_1 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,1)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_2 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,2)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_3 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,3)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_4 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,4)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_5 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,5)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_6 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,6)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_7 &lt;- quantile(filter_mc_dow(input_cleandata,input_MC,7)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  
+  return &lt;- data.frame(day_of_week = c(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tues&quot;,&quot;Wed&quot;,&quot;Thurs&quot;,&quot;Fri&quot;,&quot;Sat&quot;),
+                       day_of_week_num = c(rep(1:7,3)),
+                       Q1 = c(
+                         tmp_quantile_1[2],
+                         tmp_quantile_2[2],
+                         tmp_quantile_3[2],
+                         tmp_quantile_4[2],
+                         tmp_quantile_5[2],
+                         tmp_quantile_6[2],
+                         tmp_quantile_7[2]
+                       ),
+                       Q2 = c(
+                         tmp_quantile_1[3],
+                         tmp_quantile_2[3],
+                         tmp_quantile_3[3],
+                         tmp_quantile_4[3],
+                         tmp_quantile_5[3],
+                         tmp_quantile_6[3],
+                         tmp_quantile_7[3]
+                       ),
+                       Q3 = c(
+                         tmp_quantile_1[4],
+                         tmp_quantile_2[4],
+                         tmp_quantile_3[4],
+                         tmp_quantile_4[4],
+                         tmp_quantile_5[4],
+                         tmp_quantile_6[4],
+                         tmp_quantile_7[4]
+                       ),
+                       Q4 = c(
+                         tmp_quantile_1[5],
+                         tmp_quantile_2[5],
+                         tmp_quantile_3[5],
+                         tmp_quantile_4[5],
+                         tmp_quantile_5[5],
+                         tmp_quantile_6[5],
+                         tmp_quantile_7[5]
+                       )
+                       )
+}
+
+# Function - Create table of number of trips
+create_df_num_of_trips &lt;- function(input_cleandata,input_MorC){
+  return &lt;- data.frame(day_of_week = c(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tues&quot;,&quot;Wed&quot;,&quot;Thurs&quot;,&quot;Fri&quot;,&quot;Sat&quot;),
+                       num_of_trips = c(nrow(filter_mc_dow(input_cleandata,input_MorC,1)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,2)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,3)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,4)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,5)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,6)),
+                                        nrow(filter_mc_dow(input_cleandata,input_MorC,7))
+                       )
+  )
+}
+# Function - Create a table of number of trips that less than Q2
+create_df_num_of_trips_q &lt;- function(input_cleandata,input_MorC,input_q){
+  
+  
+  tmp_filter_data_MorC1 &lt;-filter_mc_dow(input_cleandata,input_MorC,1)
+  tmp_filter_data_MorC2 &lt;-filter_mc_dow(input_cleandata,input_MorC,2)
+  tmp_filter_data_MorC3 &lt;-filter_mc_dow(input_cleandata,input_MorC,3)
+  tmp_filter_data_MorC4 &lt;-filter_mc_dow(input_cleandata,input_MorC,4)
+  tmp_filter_data_MorC5 &lt;-filter_mc_dow(input_cleandata,input_MorC,5)
+  tmp_filter_data_MorC6 &lt;-filter_mc_dow(input_cleandata,input_MorC,6)
+  tmp_filter_data_MorC7 &lt;-filter_mc_dow(input_cleandata,input_MorC,7)
+  
+  # Get quantile for each day
+  tmp_quantile_1 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,1)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_2 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,2)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_3 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,3)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_4 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,4)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_5 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,5)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_6 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,6)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  tmp_quantile_7 &lt;- quantile(filter_mc_dow(input_cleandata,input_MorC,7)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
+  
+  
+  return &lt;- data.frame(day_of_week = c(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tues&quot;,&quot;Wed&quot;,&quot;Thurs&quot;,&quot;Fri&quot;,&quot;Sat&quot;),
+                       num_of_trips = c(sum(tmp_filter_data_MorC1$length_of_trip_r &lt;= tmp_quantile_1[input_q]),
+                                        sum(tmp_filter_data_MorC2$length_of_trip_r &lt;= tmp_quantile_2[input_q]),
+                                        sum(tmp_filter_data_MorC3$length_of_trip_r &lt;= tmp_quantile_3[input_q]),
+                                        sum(tmp_filter_data_MorC4$length_of_trip_r &lt;= tmp_quantile_4[input_q]),
+                                        sum(tmp_filter_data_MorC5$length_of_trip_r &lt;= tmp_quantile_5[input_q]),
+                                        sum(tmp_filter_data_MorC6$length_of_trip_r &lt;= tmp_quantile_6[input_q]),
+                                        sum(tmp_filter_data_MorC7$length_of_trip_r &lt;= tmp_quantile_7[input_q])
+                                        )
+                      )
+}
+
+# Function - Find Num of Bikes Used per day per type of user
+## Writing a function to make finding bike values cleaner
+find_bike_data &lt;- function(input_clean_data_rideable_type,input_clean_data_member_casual,memberOrCasual,input_clean_data_day_of_week){
+  return &lt;- data.frame(day_of_week = c(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tues&quot;,&quot;Wed&quot;,&quot;Thurs&quot;,&quot;Fri&quot;,&quot;Sat&quot;),
+                       classic_bike = c(sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 1),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 2),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 3),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 4),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 5),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 6),
+                                        sum(input_clean_data_rideable_type == &quot;classic_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 7)
+                                        ),
+                       docked_bike = c(sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 1),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 2),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 3),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 4),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 5),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 6),
+                                       sum(input_clean_data_rideable_type == &quot;docked_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 7)
+                                       ),
+                       electric_bike = c(sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 1),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 2),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 3),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 4),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 5),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 6),
+                                         sum(input_clean_data_rideable_type == &quot;electric_bike&quot; &amp; input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 7)
+                                       ),
+                       total = c(sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 1),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 2),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 3),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 4),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 5),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 6),
+                                      sum(input_clean_data_member_casual==memberOrCasual&amp; input_clean_data_day_of_week == 7)
+                                      )
+  )
+}</code></pre>
+</div>
+<div id="applying-functions-to-clean-data" class="section level4">
+<h4><a name="Appx2"></a>Applying Functions to Clean Data</h4>
+<p><a href="#Ref2">Jump to report this is used</a></p>
+<pre class="r"><code># JANUARY
+jan_2022_casual_df &lt;- create_df_num_of_trips(jan_2022_clean,&quot;casual&quot;)
+jan_2022_member_df &lt;- create_df_num_of_trips(jan_2022_clean,&quot;member&quot;)
+jan_2022_qAll_casual_df &lt;- create_df_q_data(jan_2022_clean,&quot;casual&quot;)
+jan_2022_qAll_member_df &lt;- create_df_q_data(jan_2022_clean,&quot;member&quot;)
+jan_2022_q2_casual_df &lt;- create_df_num_of_trips_q(jan_2022_clean,&quot;casual&quot;,3)
+jan_2022_q2_member_df &lt;- create_df_num_of_trips_q(jan_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+jan_2022_bike_type_Casual_df &lt;- find_bike_data(jan_2022_clean$rideable_type,jan_2022_clean$member_casual,&quot;casual&quot;,jan_2022_clean$day_of_week)
+jan_2022_bike_type_Member_df &lt;- find_bike_data(jan_2022_clean$rideable_type,jan_2022_clean$member_casual,&quot;member&quot;,jan_2022_clean$day_of_week)
+
+# FEBRUARY
+feb_2022_casual_df &lt;- create_df_num_of_trips(feb_2022_clean,&quot;casual&quot;)
+feb_2022_member_df &lt;- create_df_num_of_trips(feb_2022_clean,&quot;member&quot;)
+feb_2022_qAll_casual_df &lt;- create_df_q_data(feb_2022_clean,&quot;casual&quot;)
+feb_2022_qAll_member_df &lt;- create_df_q_data(feb_2022_clean,&quot;member&quot;)
+feb_2022_q2_casual_df &lt;- create_df_num_of_trips_q(feb_2022_clean,&quot;casual&quot;,3)
+feb_2022_q2_member_df &lt;- create_df_num_of_trips_q(feb_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+feb_2022_bike_type_Casual_df &lt;- find_bike_data(feb_2022_clean$rideable_type,feb_2022_clean$member_casual,&quot;casual&quot;,feb_2022_clean$day_of_week)
+feb_2022_bike_type_Member_df &lt;- find_bike_data(feb_2022_clean$rideable_type,feb_2022_clean$member_casual,&quot;member&quot;,feb_2022_clean$day_of_week)
+
+
+# MARCH
+mar_2022_casual_df &lt;- create_df_num_of_trips(mar_2022_clean,&quot;casual&quot;)
+mar_2022_member_df &lt;- create_df_num_of_trips(mar_2022_clean,&quot;member&quot;)
+mar_2022_qAll_casual_df &lt;- create_df_q_data(mar_2022_clean,&quot;casual&quot;)
+mar_2022_qAll_member_df &lt;- create_df_q_data(mar_2022_clean,&quot;member&quot;)
+mar_2022_q2_casual_df &lt;- create_df_num_of_trips_q(mar_2022_clean,&quot;casual&quot;,3)
+mar_2022_q2_member_df &lt;- create_df_num_of_trips_q(mar_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+mar_2022_bike_type_Casual_df &lt;- find_bike_data(mar_2022_clean$rideable_type,mar_2022_clean$member_casual,&quot;casual&quot;,mar_2022_clean$day_of_week)
+mar_2022_bike_type_Member_df &lt;- find_bike_data(mar_2022_clean$rideable_type,mar_2022_clean$member_casual,&quot;member&quot;,mar_2022_clean$day_of_week)
+
+# APRIL
+apr_2022_casual_df &lt;- create_df_num_of_trips(apr_2022_clean,&quot;casual&quot;)
+apr_2022_member_df &lt;- create_df_num_of_trips(apr_2022_clean,&quot;member&quot;)
+apr_2022_qAll_casual_df &lt;- create_df_q_data(apr_2022_clean,&quot;casual&quot;)
+apr_2022_qAll_member_df &lt;- create_df_q_data(apr_2022_clean,&quot;member&quot;)
+apr_2022_q2_casual_df &lt;- create_df_num_of_trips_q(apr_2022_clean,&quot;casual&quot;,3)
+apr_2022_q2_member_df &lt;- create_df_num_of_trips_q(apr_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+apr_2022_bike_type_Casual_df &lt;- find_bike_data(apr_2022_clean$rideable_type,apr_2022_clean$member_casual,&quot;casual&quot;,apr_2022_clean$day_of_week)
+apr_2022_bike_type_Member_df &lt;- find_bike_data(apr_2022_clean$rideable_type,apr_2022_clean$member_casual,&quot;member&quot;,apr_2022_clean$day_of_week)
+
+
+# MAY
+may_2022_casual_df &lt;- create_df_num_of_trips(may_2022_clean,&quot;casual&quot;)
+may_2022_member_df &lt;- create_df_num_of_trips(may_2022_clean,&quot;member&quot;)
+may_2022_qAll_casual_df &lt;- create_df_q_data(may_2022_clean,&quot;casual&quot;)
+may_2022_qAll_member_df &lt;- create_df_q_data(may_2022_clean,&quot;member&quot;)
+may_2022_q2_casual_df &lt;- create_df_num_of_trips_q(may_2022_clean,&quot;casual&quot;,3)
+may_2022_q2_member_df &lt;- create_df_num_of_trips_q(may_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+may_2022_bike_type_Casual_df &lt;- find_bike_data(may_2022_clean$rideable_type,may_2022_clean$member_casual,&quot;casual&quot;,may_2022_clean$day_of_week)
+may_2022_bike_type_Member_df &lt;- find_bike_data(may_2022_clean$rideable_type,may_2022_clean$member_casual,&quot;member&quot;,may_2022_clean$day_of_week)
+
+
+# JUNE
+jun_2022_casual_df &lt;- create_df_num_of_trips(jun_2022_clean,&quot;casual&quot;)
+jun_2022_member_df &lt;- create_df_num_of_trips(jun_2022_clean,&quot;member&quot;)
+jun_2022_qAll_casual_df &lt;- create_df_q_data(jun_2022_clean,&quot;casual&quot;)
+jun_2022_qAll_member_df &lt;- create_df_q_data(jun_2022_clean,&quot;member&quot;)
+jun_2022_q2_casual_df &lt;- create_df_num_of_trips_q(jun_2022_clean,&quot;casual&quot;,3)
+jun_2022_q2_member_df &lt;- create_df_num_of_trips_q(jun_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+jun_2022_bike_type_Casual_df &lt;- find_bike_data(jun_2022_clean$rideable_type,jun_2022_clean$member_casual,&quot;casual&quot;,jun_2022_clean$day_of_week)
+jun_2022_bike_type_Member_df &lt;- find_bike_data(jun_2022_clean$rideable_type,jun_2022_clean$member_casual,&quot;member&quot;,jun_2022_clean$day_of_week)
+
+
+# JULY
+jul_2022_casual_df &lt;- create_df_num_of_trips(jul_2022_clean,&quot;casual&quot;)
+jul_2022_member_df &lt;- create_df_num_of_trips(jul_2022_clean,&quot;member&quot;)
+jul_2022_qAll_casual_df &lt;- create_df_q_data(jul_2022_clean,&quot;casual&quot;)
+jul_2022_qAll_member_df &lt;- create_df_q_data(jul_2022_clean,&quot;member&quot;)
+jul_2022_q2_casual_df &lt;- create_df_num_of_trips_q(jul_2022_clean,&quot;casual&quot;,3)
+jul_2022_q2_member_df &lt;- create_df_num_of_trips_q(jul_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+jul_2022_bike_type_Casual_df &lt;- find_bike_data(jul_2022_clean$rideable_type,jul_2022_clean$member_casual,&quot;casual&quot;,jul_2022_clean$day_of_week)
+jul_2022_bike_type_Member_df &lt;- find_bike_data(jul_2022_clean$rideable_type,jul_2022_clean$member_casual,&quot;member&quot;,jul_2022_clean$day_of_week)
+
+
+# AUGUST
+aug_2022_casual_df &lt;- create_df_num_of_trips(aug_2022_clean,&quot;casual&quot;)
+aug_2022_member_df &lt;- create_df_num_of_trips(aug_2022_clean,&quot;member&quot;)
+aug_2022_qAll_casual_df &lt;- create_df_q_data(aug_2022_clean,&quot;casual&quot;)
+aug_2022_qAll_member_df &lt;- create_df_q_data(aug_2022_clean,&quot;member&quot;)
+aug_2022_q2_casual_df &lt;- create_df_num_of_trips_q(aug_2022_clean,&quot;casual&quot;,3)
+aug_2022_q2_member_df &lt;- create_df_num_of_trips_q(aug_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+aug_2022_bike_type_Casual_df &lt;- find_bike_data(aug_2022_clean$rideable_type,aug_2022_clean$member_casual,&quot;casual&quot;,aug_2022_clean$day_of_week)
+aug_2022_bike_type_Member_df &lt;- find_bike_data(aug_2022_clean$rideable_type,aug_2022_clean$member_casual,&quot;member&quot;,aug_2022_clean$day_of_week)
+
+
+# SEPTEMBER
+sep_2022_casual_df &lt;- create_df_num_of_trips(sep_2022_clean,&quot;casual&quot;)
+sep_2022_member_df &lt;- create_df_num_of_trips(sep_2022_clean,&quot;member&quot;)
+sep_2022_qAll_casual_df &lt;- create_df_q_data(sep_2022_clean,&quot;casual&quot;)
+sep_2022_qAll_member_df &lt;- create_df_q_data(sep_2022_clean,&quot;member&quot;)
+sep_2022_q2_casual_df &lt;- create_df_num_of_trips_q(sep_2022_clean,&quot;casual&quot;,3)
+sep_2022_q2_member_df &lt;- create_df_num_of_trips_q(sep_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+sep_2022_bike_type_Casual_df &lt;- find_bike_data(sep_2022_clean$rideable_type,sep_2022_clean$member_casual,&quot;casual&quot;,sep_2022_clean$day_of_week)
+sep_2022_bike_type_Member_df &lt;- find_bike_data(sep_2022_clean$rideable_type,sep_2022_clean$member_casual,&quot;member&quot;,sep_2022_clean$day_of_week)
+
+
+# OCTOBER
+oct_2022_casual_df &lt;- create_df_num_of_trips(oct_2022_clean,&quot;casual&quot;)
+oct_2022_member_df &lt;- create_df_num_of_trips(oct_2022_clean,&quot;member&quot;)
+oct_2022_qAll_casual_df &lt;- create_df_q_data(oct_2022_clean,&quot;casual&quot;)
+oct_2022_qAll_member_df &lt;- create_df_q_data(oct_2022_clean,&quot;member&quot;)
+oct_2022_q2_casual_df &lt;- create_df_num_of_trips_q(oct_2022_clean,&quot;casual&quot;,3)
+oct_2022_q2_member_df &lt;- create_df_num_of_trips_q(oct_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+oct_2022_bike_type_Casual_df &lt;- find_bike_data(oct_2022_clean$rideable_type,oct_2022_clean$member_casual,&quot;casual&quot;,oct_2022_clean$day_of_week)
+oct_2022_bike_type_Member_df &lt;- find_bike_data(oct_2022_clean$rideable_type,oct_2022_clean$member_casual,&quot;member&quot;,oct_2022_clean$day_of_week)
+
+# NOVEMBER
+nov_2022_casual_df &lt;- create_df_num_of_trips(nov_2022_clean,&quot;casual&quot;)
+nov_2022_member_df &lt;- create_df_num_of_trips(nov_2022_clean,&quot;member&quot;)
+nov_2022_qAll_casual_df &lt;- create_df_q_data(nov_2022_clean,&quot;casual&quot;)
+nov_2022_qAll_member_df &lt;- create_df_q_data(nov_2022_clean,&quot;member&quot;)
+nov_2022_q2_casual_df &lt;- create_df_num_of_trips_q(nov_2022_clean,&quot;casual&quot;,3)
+nov_2022_q2_member_df &lt;- create_df_num_of_trips_q(nov_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+nov_2022_bike_type_Casual_df &lt;- find_bike_data(nov_2022_clean$rideable_type,nov_2022_clean$member_casual,&quot;casual&quot;,nov_2022_clean$day_of_week)
+nov_2022_bike_type_Member_df &lt;- find_bike_data(nov_2022_clean$rideable_type,nov_2022_clean$member_casual,&quot;member&quot;,nov_2022_clean$day_of_week)
+
+# DECEMBER
+dec_2022_casual_df &lt;- create_df_num_of_trips(dec_2022_clean,&quot;casual&quot;)
+dec_2022_member_df &lt;- create_df_num_of_trips(dec_2022_clean,&quot;member&quot;)
+dec_2022_qAll_casual_df &lt;- create_df_q_data(dec_2022_clean,&quot;casual&quot;)
+dec_2022_qAll_member_df &lt;- create_df_q_data(dec_2022_clean,&quot;member&quot;)
+dec_2022_q2_casual_df &lt;- create_df_num_of_trips_q(dec_2022_clean,&quot;casual&quot;,3)
+dec_2022_q2_member_df &lt;- create_df_num_of_trips_q(dec_2022_clean,&quot;member&quot;,3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+dec_2022_bike_type_Casual_df &lt;- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,&quot;casual&quot;,dec_2022_clean$day_of_week)
+dec_2022_bike_type_Member_df &lt;- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,&quot;member&quot;,dec_2022_clean$day_of_week)</code></pre>
+</div>
+</div>
 </div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
