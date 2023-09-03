@@ -43,7 +43,7 @@ Cyclistic is a (fictional) bike-share company in Chicago. In order to maximize t
 ## <a name="ptA" />A. Data Sources
 The data is downloaded from <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">this website</a> as zip files. The data has been provided according to the Divvy Data License Agreement. You can read more on <a href="https://divvybikes.com/system-data">their website</a>.
 
-For this report, I have chosen to look at a complete year of data. As of this writing this report, the latest full year of data is from 2022. The 
+For this report, I have chosen to look at a complete year of data. As of this writing this report, the latest full year of data is from 2022.  
 
 The raw data for each month in 2022 was downloaded and placed in a folder labeled "Raw Data" in the project main folder.
 
