@@ -1,12 +1,12 @@
 ---
 title: "Cyclistic Case Study"
 author: "Steve Tamayo"
-date: "2023-09-02"
+date: "2023-09-03"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-#rm(list=ls()) #reset envionment
+#rm(list=ls()) #reset environment
 knitr::opts_chunk$set(echo = TRUE,warning = FALSE, message = FALSE)
 library(tidyverse)  #helps wrangle data
 library(lubridate)  #helps wrangle date attributes
@@ -15,6 +15,7 @@ library(scales) #helps manage scale of data
 library(tidyr)
 library(knitr) # for report tables
 library(kableExtra)
+library(hms)
 ```
 
 ## Introduction

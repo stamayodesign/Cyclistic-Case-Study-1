@@ -3,6 +3,7 @@ library(lubridate)  #helps wrangle date attributes
 library(ggplot2)  #helps visualize data
 library(scales) #helps manage scale of data
 library(tidyr)
+library(hms)
 
 #getwd() #displays your working directory
 #setwd("/Users/soroc/Documents/_coursera/Google-Data-Analytics-Certificate/Capstone/Case Study 1/Prepared Data") #changes to directory with CSVs
@@ -863,21 +864,53 @@ createTimeStamp = function(input_minute, input_second){
   return = paste(input_minute,temp_second,sep = ":")
 }
 
+year_2022_q2_df_fixed <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_qAll_casual_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStamp(c(minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                              c(second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)))
+                                                              )
+                                     )
+
+
+
+ggplot(data=year_2022_q2_df_fixed,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual vs Member",
+       subtitle = "The second quantile of casual and member rider's length of time",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  ) +
+  scale_fill_manual(values = c("orange","violet"),name="Customer")
+
+
+
+
 year_2022_q2_casual_df_fixed <- data.frame(day_of_week_num = c(year_2022_qAll_casual_df$day_of_week_num),
                                            Q2 = c(year_2022_qAll_casual_df$Q2),
                                            Q2seconds = minute(c(year_2022_qAll_casual_df$Q2))*60+second(c(year_2022_qAll_casual_df$Q2)),
                                            Q2Text = createTimeStamp(c(minute(year_2022_qAll_casual_df$Q2)),
                                                                     c(second(year_2022_qAll_casual_df$Q2))
-                                                                    )
                                            )
+)
 
-library(hms)
 ggplot(data=year_2022_q2_casual_df_fixed,aes(x=day_of_week_num,y=Q2seconds))+
-  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
-  labs(title = "",
-       subtitle = "",
-       x="",
-       y="")+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9), fill="orange") +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual",
+       subtitle = "The second quantile of casual rider's length of time",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)",
+       legend="Customer")+
   geom_text(aes(label = Q2Text ),
             position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
   scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
@@ -888,4 +921,107 @@ ggplot(data=year_2022_q2_casual_df_fixed,aes(x=day_of_week_num,y=Q2seconds))+
   theme(plot.title = element_text(size = 24),
         plot.subtitle = element_text(size = 14)
   ) 
+
+year_2022_q2_member_df_fixed <- data.frame(day_of_week_num = c(year_2022_qAll_member_df$day_of_week_num),
+                                           Q2 = c(year_2022_qAll_member_df$Q2),
+                                           Q2seconds = minute(c(year_2022_qAll_member_df$Q2))*60+second(c(year_2022_qAll_member_df$Q2)),
+                                           Q2Text = createTimeStamp(c(minute(year_2022_qAll_member_df$Q2)),
+                                                                    c(second(year_2022_qAll_member_df$Q2))
+                                           )
+)
+
+ggplot(data=year_2022_q2_member_df_fixed,aes(x=day_of_week_num,y=Q2seconds))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9), fill="violet") +
+  labs(title = "Year 2022 Q2 Bike Trip, Member",
+       subtitle = "The second quantile of member rider's length of time",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)",
+       legend="Customer")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  ) 
+
+## Let's Check docked Bikes Casual
+
+year_2022_clean_casual_docked_bike <- subset(year_2022_clean,member_casual=="casual"& rideable_type=="docked_bike")
+
+nrow(year_2022_clean_casual_docked_bike) # 176372 
+nrow(subset(year_2022_clean,member_casual=="casual")) #2319783
+
+year_2022_qAll_casual_docked_bike_df <- create_df_q_data(year_2022_clean_casual_docked_bike,"casual")
+
+createTimeStampWHH = function(input_hour,input_minute, input_second){
+  temp_minute = ifelse(input_minute < 10,paste("0",input_minute,sep = ""),
+                       as.character(input_minute))
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+                       as.character(input_second))
+  return = ifelse(input_hour == 0,paste(input_minute,temp_second,sep = ":"),paste(input_hour,temp_minute,temp_second,sep = ":"))
+    
+}
+
+year_2022_q2_casual_docked_bike_df <- data.frame(day_of_week_num = c(year_2022_qAll_casual_docked_bike_df$day_of_week_num),
+                                           Q2 = c(year_2022_qAll_casual_docked_bike_df$Q2),
+                                           Q2seconds = hour(c(year_2022_qAll_casual_docked_bike_df$Q2))*60*60+minute(c(year_2022_qAll_casual_docked_bike_df$Q2))*60+second(c(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                           Q2Text = createTimeStampWHH(c(hour(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(minute(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(second(year_2022_qAll_casual_docked_bike_df$Q2))
+                                           )
+)
+
+ggplot(data=year_2022_q2_casual_docked_bike_df,aes(x=day_of_week_num,y=Q2seconds))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9), fill="red") +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual - Docked",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)",
+       legend="Customer")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '1:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  ) 
+
+# Now let's show it side by side with Members
+year_2022_q2_dockedcasualvsmember <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_q2_casual_docked_bike_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60*60+minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStampWHH(c(hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)))
+                                     )
+)
+
+
+
+ggplot(data=year_2022_q2_dockedcasualvsmember,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual using Docked vs Member",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes vs member's",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '01:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  ) +
+  scale_fill_manual(values = c("red","violet"),name="Customer")
+
 
