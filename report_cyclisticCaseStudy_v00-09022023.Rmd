@@ -14,6 +14,7 @@ library(ggplot2)  #helps visualize data
 library(scales) #helps manage scale of data
 library(tidyr)
 library(knitr) # for report tables
+library(kableExtra)
 ```
 
 ## Introduction
@@ -29,7 +30,7 @@ Cyclistic is a (fictional) bike-share company in Chicago. In order to maximize t
 [A. Data Sources](#ptA)</br>
 [B. Cleaning Documentation](#ptB)</br>
 [C. Analysis](#ptC)</br>
-[D. Supporting Visualizations](#ptD)</br>
+[D. Additional Supporting Visualizations](#ptD)</br>
 [E. Recommendations](#ptE)</br>
 [F. Appendix](#ptF)</br>
 
@@ -112,6 +113,7 @@ dec_2022_clean <- remove_outliers(dec_2022)
 ```
 
 ## <a name="ptC"/>C. Analysis
+### Starting Tables
 <a name="Ref1" />
 Now that the data is cleaned, it was time to aggregate the data into something more manageable. I created several functions to help with this process. The full code can be found in the [Appendix here](#Appx1).
 
@@ -137,7 +139,7 @@ create_df_q_data <- function(input_cleandata,input_MC){
   tmp_quantile_7 <- quantile(filter_mc_dow(input_cleandata,input_MC,7)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
   
   return <- data.frame(day_of_week = c("Sun","Mon","Tues","Wed","Thurs","Fri","Sat"),
-                       day_of_week_num = c(rep(1:7,3)),
+                       day_of_week_num = c(1:7),
                        Q1 = c(
                          tmp_quantile_1[2],
                          tmp_quantile_2[2],
@@ -264,7 +266,7 @@ find_bike_data <- function(input_clean_data_rideable_type,input_clean_data_membe
 }
 ```
 <a name="Ref2" />
-These functions were then able to be applied to all of the clean data. Code is include in the [Appendix here](#Appx2).
+These functions were then able to be applied to all of the clean data. A master year data frame was also created and the functions applied to. Full code chunk is include in the [Appendix here](#Appx2).
 ```{r Applying Functions to Clean Data, include=FALSE}
 # JANUARY
 jan_2022_casual_df <- create_df_num_of_trips(jan_2022_clean,"casual")
@@ -417,24 +419,137 @@ dec_2022_q2_member_df <- create_df_num_of_trips_q(dec_2022_clean,"member",3)
 dec_2022_bike_type_Casual_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"casual",dec_2022_clean$day_of_week)
 dec_2022_bike_type_Member_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"member",dec_2022_clean$day_of_week)
 
+# 2022
+year_2022_clean <- rbind(jan_2022_clean, feb_2022_clean, mar_2022_clean, apr_2022_clean, 
+                         may_2022_clean, jun_2022_clean, jul_2022_clean, aug_2022_clean, 
+                         sep_2022_clean, oct_2022_clean, nov_2022_clean, dec_2022_clean)
+year_2022_casual_df <- create_df_num_of_trips(year_2022_clean,"casual")
+year_2022_member_df <- create_df_num_of_trips(year_2022_clean,"member")
+year_2022_qAll_casual_df <- create_df_q_data(year_2022_clean,"casual")
+year_2022_qAll_member_df <- create_df_q_data(year_2022_clean,"member")
+year_2022_q2_casual_df <- create_df_num_of_trips_q(year_2022_clean,"casual",3)
+year_2022_q2_member_df <- create_df_num_of_trips_q(year_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"casual",year_2022_clean$day_of_week)
+year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
 ```
 
-The new tables display the following for each month (Displaying January only):
-
-Number of trips for each month by member status and bike_type (Casual & Member are separate)
-
-##### Casual
-
-```{r Example Number of Trips Jan - Casual, include=FALSE}
-kable(jan_2022_bike_type_Casual_df,caption = "Number of Trips Jan - Casual")
+```{r Year 2022 Clean, First 10 rows, echo=FALSE}
+kable(head(year_2022_clean),caption = "Year 2022 Clean, First 10 rows") %>% 
+  kable_styling()
 ```
 
-##### Member
+Additional tables display the following for each month or the whole year (Displaying full year only):
 
-```{r Example Number of Trips Jan - Member, include=FALSE}
-kable(jan_2022_bike_type_Member_df,caption = "Number of Trips Jan - Member")
+1. Number of trips for each month by member status and bike_type (Casual & Member are separate)
+
+```{r Example Number of Trips 2022 - Casual, echo=FALSE}
+kable(year_2022_bike_type_Casual_df,caption = "Number of Trips per Day of the Week, 2022 - Casual") %>% 
+  kable_styling()
 ```
 
+
+```{r Example Number of Trips 2022 - Member, echo=FALSE}
+kable(year_2022_bike_type_Member_df,caption = "Number of Trips, 2022 - Member") %>% 
+  kable_styling()
+```
+
+2. Quantiles of the length of trips for each month by day of the week (Casual & Member are separate)*
+
+```{r Example Quantiles 2022 - Casual, echo=FALSE}
+kable(year_2022_qAll_casual_df,caption = "Quantiles for Length of Trip, 2022 - Casual") %>% 
+  kable_styling()
+```
+
+```{r Example Quantiles 2022 - Member, echo=FALSE}
+kable(year_2022_qAll_member_df,caption = "Quantiles for Length of Trip, 2022 - Member") %>% 
+  kable_styling()
+```
+*Separate tables for just the second Quantile, 50% and below of trips, were also created for analysis purpose. 
+
+3. Additional tables to be used by functions (Not displayed for convenient, but found in the [Appendix here](#Appx2))
+
+### <a name="Ref3" />Trends and Relationships
+
+The next step was to find trends in the data. 
+
+#### Trip Frequency
+<a name="Ref2" />The first thing I wanted to check was how many trips per month casual and member customers accrued. The code can be found in the [Appendix here](#Appx3).
+```{r Year 2022 Customers Trip Frequency, include=FALSE}
+df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
+                                           monthNum = rep(as.factor(c(1:12)),2),
+                                           num_of_trips = c(sum(jan_2022_casual_df$num_of_trips),
+                                             sum(feb_2022_casual_df$num_of_trips),
+                                             sum(mar_2022_casual_df$num_of_trips),
+                                             sum(apr_2022_casual_df$num_of_trips),
+                                             sum(may_2022_casual_df$num_of_trips),
+                                             sum(jun_2022_casual_df$num_of_trips),
+                                             sum(jul_2022_casual_df$num_of_trips),
+                                             sum(aug_2022_casual_df$num_of_trips),
+                                             sum(sep_2022_casual_df$num_of_trips),
+                                             sum(oct_2022_casual_df$num_of_trips),
+                                             sum(nov_2022_casual_df$num_of_trips),
+                                             sum(dec_2022_casual_df$num_of_trips),
+                                             sum(jan_2022_member_df$num_of_trips),
+                                             sum(feb_2022_member_df$num_of_trips),
+                                             sum(mar_2022_member_df$num_of_trips),
+                                             sum(apr_2022_member_df$num_of_trips),
+                                             sum(may_2022_member_df$num_of_trips),
+                                             sum(jun_2022_member_df$num_of_trips),
+                                             sum(jul_2022_member_df$num_of_trips),
+                                             sum(aug_2022_member_df$num_of_trips),
+                                             sum(sep_2022_member_df$num_of_trips),
+                                             sum(oct_2022_member_df$num_of_trips),
+                                             sum(nov_2022_member_df$num_of_trips),
+                                             sum(dec_2022_member_df$num_of_trips)
+                                             )
+                                          )
+
+graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes(x=monthNum,y=num_of_trips, fill = customer_type)) +
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9))+
+  labs(title = "Year 2022 Customers' Trip Frequency",
+       subtitle = "Number of Trips per month",
+       x="Per Month",
+       y="Number of Trips (K*)",
+       caption="K stands for 1000") +
+  scale_fill_discrete(name="Customer") +
+  geom_text(aes(label = paste(c(floor(num_of_trips/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=2.75,hjust= 1,vjust=-.75,angle=-60) +
+  scale_y_continuous(limits = c(0,500000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_discrete(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+```
+
+```{r View graph_year2022_tripfreq_customer,fig.width=100,fig.height=11}}
+graph_year2022_tripfreq_customer
+```
+
+As you can see, the number of trips for members peaked in August, while the number of trips for casual customers peaked a month earlier in July. And while the May to July shows that there is a relatively equal amount of trips between casual customers and members, the rest of the year has far more members using the service compared to casual customers.
+
+#### Bike Preferences 
+The next trend to check was to see the difference between each bike type and how frequent each customer used each. The code can be found in the [Appendix here](#Appx4).
+
+
+
+#### Trip Length
+The final trend I wanted to check was to see the common length of trip between the customer types. However, I didn't want to take the average of length of every trip, but instead use quantiles to get a more accurate look at the trip lengths without taking outliers into consideration. The code can be found in the [Appendix here](#Appx5).
+
+
+## <a name="ptD" />D. Additional Supporting Visualizations
+
+## <a name="ptE" />E. Recommendations
+
+After completion of the analysis, here are my three recommendations:
+
+1. Casual customers use bikes more frequently in the hot summer months. **Create summer promotions to help convert casual customers to members.**
+2. Casual customers use more electric bikes over classic bikes. **Creation promotions advertising electric-powered bikes. Increase number of electric bikes available.**
+3. Casual customers take more time on their trips through the service comparatively to current members. Current members also do not use docked bikes. **Advertising should include member testimonials about how much time is saved by not having to use the docked bikes.**
 
 ## <a name="ptF" />F. Appendix
 
@@ -442,7 +557,7 @@ kable(jan_2022_bike_type_Member_df,caption = "Number of Trips Jan - Member")
 This section contains code mentioned in the report. Code here will not evaluate.
 
 #### <a name="Appx1"/>Anaylsis Functions
-[Jump to report this is used](#Ref1)
+[Jump to report location this is used](#Ref1)
 ```{r APPX: Analysis Functions, include=TRUE, eval=FALSE}
 
 # Function - Filters member status and day of the week
@@ -465,7 +580,7 @@ create_df_q_data <- function(input_cleandata,input_MC){
   tmp_quantile_7 <- quantile(filter_mc_dow(input_cleandata,input_MC,7)$length_of_trip_r,probs = c(0,0.25,0.5,0.75,1)) 
   
   return <- data.frame(day_of_week = c("Sun","Mon","Tues","Wed","Thurs","Fri","Sat"),
-                       day_of_week_num = c(rep(1:7,3)),
+                       day_of_week_num = c(1:7),
                        Q1 = c(
                          tmp_quantile_1[2],
                          tmp_quantile_2[2],
@@ -593,7 +708,7 @@ find_bike_data <- function(input_clean_data_rideable_type,input_clean_data_membe
 ```
 
 #### <a name="Appx2"/>Applying Functions to Clean Data
-[Jump to report this is used](#Ref2)
+[Jump to report location this is used](#Ref2)
 ```{r APPX: Applying Functions to Clean Data, include=TRUE, eval=FALSE}
 # JANUARY
 jan_2022_casual_df <- create_df_num_of_trips(jan_2022_clean,"casual")
@@ -746,14 +861,70 @@ dec_2022_q2_member_df <- create_df_num_of_trips_q(dec_2022_clean,"member",3)
 dec_2022_bike_type_Casual_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"casual",dec_2022_clean$day_of_week)
 dec_2022_bike_type_Member_df <- find_bike_data(dec_2022_clean$rideable_type,dec_2022_clean$member_casual,"member",dec_2022_clean$day_of_week)
 
+# 2022
+year_2022_clean <- rbind(jan_2022_clean, feb_2022_clean, mar_2022_clean, apr_2022_clean, 
+                         may_2022_clean, jun_2022_clean, jul_2022_clean, aug_2022_clean, 
+                         sep_2022_clean, oct_2022_clean, nov_2022_clean, dec_2022_clean)
+year_2022_casual_df <- create_df_num_of_trips(year_2022_clean,"casual")
+year_2022_member_df <- create_df_num_of_trips(year_2022_clean,"member")
+year_2022_qAll_casual_df <- create_df_q_data(year_2022_clean,"casual")
+year_2022_qAll_member_df <- create_df_q_data(year_2022_clean,"member")
+year_2022_q2_casual_df <- create_df_num_of_trips_q(year_2022_clean,"casual",3)
+year_2022_q2_member_df <- create_df_num_of_trips_q(year_2022_clean,"member",3)
+# Determining Most Popular Type of Bike
+# classic_bike, docked_bike, electric_bike
+year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"casual",year_2022_clean$day_of_week)
+year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
 ```
 
-## Including Plots
+#### <a name="Appx3"/>Applying Functions to Clean Data
+[Jump to report location this is used](#Ref3)
+```{r APPX: Year 2022 Customers Trip Frequency, include=TRUE, eval=FALSE}
+df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
+                                           monthNum = rep(as.factor(c(1:12)),2),
+                                           num_of_trips = c(sum(jan_2022_casual_df$num_of_trips),
+                                             sum(feb_2022_casual_df$num_of_trips),
+                                             sum(mar_2022_casual_df$num_of_trips),
+                                             sum(apr_2022_casual_df$num_of_trips),
+                                             sum(may_2022_casual_df$num_of_trips),
+                                             sum(jun_2022_casual_df$num_of_trips),
+                                             sum(jul_2022_casual_df$num_of_trips),
+                                             sum(aug_2022_casual_df$num_of_trips),
+                                             sum(sep_2022_casual_df$num_of_trips),
+                                             sum(oct_2022_casual_df$num_of_trips),
+                                             sum(nov_2022_casual_df$num_of_trips),
+                                             sum(dec_2022_casual_df$num_of_trips),
+                                             sum(jan_2022_member_df$num_of_trips),
+                                             sum(feb_2022_member_df$num_of_trips),
+                                             sum(mar_2022_member_df$num_of_trips),
+                                             sum(apr_2022_member_df$num_of_trips),
+                                             sum(may_2022_member_df$num_of_trips),
+                                             sum(jun_2022_member_df$num_of_trips),
+                                             sum(jul_2022_member_df$num_of_trips),
+                                             sum(aug_2022_member_df$num_of_trips),
+                                             sum(sep_2022_member_df$num_of_trips),
+                                             sum(oct_2022_member_df$num_of_trips),
+                                             sum(nov_2022_member_df$num_of_trips),
+                                             sum(dec_2022_member_df$num_of_trips)
+                                             )
+                                          )
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes(x=monthNum,y=num_of_trips, fill = customer_type)) +
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9))+
+  labs(title = "Year 2022 Customers' Trip Frequency",
+       subtitle = "Number of Trips per month",
+       x="Per Month",
+       y="Number of Trips (K*)",
+       caption="K stands for 1000") +
+  scale_fill_discrete(name="Customer") +
+  geom_text(aes(label = paste(c(floor(num_of_trips/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=2.75,hjust= 1,vjust=-.75,angle=-60) +
+  scale_y_continuous(limits = c(0,500000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_discrete(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
