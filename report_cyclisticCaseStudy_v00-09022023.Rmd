@@ -2,7 +2,9 @@
 title: "Cyclistic Case Study"
 author: "Steve Tamayo"
 date: "2023-09-03"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,22 +20,25 @@ library(kableExtra)
 library(hms)
 ```
 
-## Introduction
+## <a name="toc" />Introduction
 
 This is a report for the Case Study 1 of the Coursera Google Data Analytics Capstone.
 
-## Business Task Statement
-
-#### "How do annual members and casual riders use Cyclistic bikes differently?"
-Cyclistic is a (fictional) bike-share company in Chicago. In order to maximize the number of annual memberships, the team wants to understand the difference between casual riders (also referred to as "casual") and annual members (also referred to as "member").
-
-## <a name="toc" />Table of Contents
+## Table of Contents
+[i. Business Task Statement](#pti)</br>
 [A. Data Sources](#ptA)</br>
 [B. Cleaning Documentation](#ptB)</br>
 [C. Analysis](#ptC)</br>
 [D. Additional Supporting Visualizations](#ptD)</br>
 [E. Recommendations](#ptE)</br>
 [F. Appendix](#ptF)</br>
+
+## <a name="pti"/>Business Task Statement
+
+#### "How do annual members and casual riders use Cyclistic bikes differently?"
+Cyclistic is a (fictional) bike-share company in Chicago. In order to maximize the number of annual memberships, the team wants to understand the difference between casual riders (also referred to as "casual customer" or "casual rider") and annual members (also referred to as "member").
+
+[Jump to Top](#toc)<br/>
 
 ## <a name="ptA" />A. Data Sources
 The data is downloaded from <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">this website</a> as zip files. The data has been provided according to the Divvy Data License Agreement. You can read more on <a href="https://divvybikes.com/system-data">their website</a>.
@@ -45,7 +50,7 @@ The raw data for each month in 2022 was downloaded and placed in a folder labele
 [Jump to Top](#toc)<br/>
 
 ## <a name="ptB"/>B. Cleaning Documentation
-### Excel Cleaning
+### B.1 Excel Cleaning
 After downloading the zip files, I unzipped the csv files and copied them to a new folder labeled CSV. I further copied these files to a file labeled "Prepared Data" to prepare them processing.
 
 Given the sizes of some of these files, spreadsheets was ruled out to handle the data as the June, July, and August reports were unable to be opened. However, they were processed in excel and then R.
@@ -83,9 +88,9 @@ dec_2022 <- read_csv("202212-divvy-tripdata_Prepped.csv")
 ```
 
 
-### R Cleaning
+### B.2 R Cleaning
 
-Upon loading the CSVs into R Studio, I came across a problem. Certain values of "length_of_trip" were being converted to N/A's. Investigating revealed that these values were not converting into the ISO8601 date format R was expecting. Looking further into the CSVs in Excel, these trip lengths were over a week long and therefore were determined to be outliers. Additionally there were a number of trips that had 0 length. I conducted additional cleaning in R by creating the following function:
+Upon loading the CSVs into R Studio, I came across a problem. Certain values of "length_of_trip" were being converted to N/A's. Investigating revealed that these values were not converting into the ISO8601 date format R was expecting. Looking further into the CSVs in Excel, these trip lengths were over a week long and therefore were determined to be outliers. Additionally, there were a number of trips that had 0 length. I conducted additional cleaning in R by creating the following function:
 
 ```{r Function remove_outliers}
 ## Removes N/A, Trips with 0 length, and assigns the length of trip to a format accepted in R
@@ -113,9 +118,10 @@ nov_2022_clean <- remove_outliers(nov_2022)
 dec_2022_clean <- remove_outliers(dec_2022)
 ```
 
+[Jump to Top](#toc)<br/>
+
 ## <a name="ptC"/>C. Analysis
-### Starting Tables
-<a name="Ref1" />
+### <a name="Ref1" />C.1 Starting Tables
 Now that the data is cleaned, it was time to aggregate the data into something more manageable. I created several functions to help with this process. The full code can be found in the [Appendix here](#Appx1).
 
 ```{r Analysis Functions, include=FALSE}
@@ -266,8 +272,10 @@ find_bike_data <- function(input_clean_data_rideable_type,input_clean_data_membe
   )
 }
 ```
+
 <a name="Ref2" />
 These functions were then able to be applied to all of the clean data. A master year data frame was also created and the functions applied to. Full code chunk is include in the [Appendix here](#Appx2).
+
 ```{r Applying Functions to Clean Data, include=FALSE}
 # JANUARY
 jan_2022_casual_df <- create_df_num_of_trips(jan_2022_clean,"casual")
@@ -436,7 +444,7 @@ year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,ye
 year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
 ```
 
-```{r Year 2022 Clean, First 10 rows, echo=FALSE}
+```{r Year 2022 Clean, First 6 rows, echo=FALSE}
 kable(head(year_2022_clean),caption = "Year 2022 Clean, First 10 rows") %>% 
   kable_styling()
 ```
@@ -446,10 +454,9 @@ Additional tables display the following for each month or the whole year (Displa
 1. Number of trips for each month by member status and bike_type (Casual & Member are separate)
 
 ```{r Example Number of Trips 2022 - Casual, echo=FALSE}
-kable(year_2022_bike_type_Casual_df,caption = "Number of Trips per Day of the Week, 2022 - Casual") %>% 
+kable(year_2022_bike_type_Casual_df,caption = "Number of Trips, 2022 - Casual") %>% 
   kable_styling()
 ```
-
 
 ```{r Example Number of Trips 2022 - Member, echo=FALSE}
 kable(year_2022_bike_type_Member_df,caption = "Number of Trips, 2022 - Member") %>% 
@@ -470,14 +477,15 @@ kable(year_2022_qAll_member_df,caption = "Quantiles for Length of Trip, 2022 - M
 
 *Separate tables for just the second Quantile, 50% and below of trips, were also created for analysis purpose. 
 
-3. Additional tables to be used by functions (Not displayed for convenient, but found in the [Appendix here](#Appx2))
+3. Additional tables to be used by functions (Not displayed for convenience, but found in the [Appendix here](#Appx2))
 
-### <a name="Ref3" />Trends and Relationships
+### <a name="Ref3" />C.2 Trends and Relationships
 
 The next step was to find trends in the data. 
 
-#### <a name="Ref2" />Trip Frequency
+#### <a name="Ref2" />C.2.a Trip Frequency
 The first thing I wanted to check was how many trips per month casual and member customers accrued. The code can be found in the [Appendix here](#Appx3).
+
 ```{r Year 2022 Customers Trip Frequency, include=FALSE}
 df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
                                            monthNum = rep(as.factor(c(1:12)),2),
@@ -523,8 +531,8 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 ```
 
@@ -532,9 +540,9 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
 graph_year2022_tripfreq_customer
 ```
 
-As you can see, the number of trips for members peaked in August, while the number of trips for casual customers peaked a month earlier in July. And while the May to July shows that there is a relatively equal amount of trips between casual customers and members, the rest of the year has far more members using the service compared to casual customers.
+The data shows that the number of trips for members peaked in August, while the number of trips for casual customers peaked a month earlier in July. And while the May to July data shows that there is a relatively equal amount of trips between casual customers and members, the rest of the year has far more members using the service compared to casual customers.
 
-#### <a name="VizRef1" /><a name="Ref4" />Bike Preferences 
+#### <a name="VizRef1" /><a name="Ref4" />C.2.b Bike Preferences 
 The next trend to check was to see the difference between each bike type and how frequent each customer used each. The code can be found in the [Appendix here](#Appx4).
 
 ```{r Year 2022 Bike Preferences, include=FALSE}
@@ -713,8 +721,8 @@ graph_year2022casual_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 
 # Year 2022 Bike Popularity for Casual Customers - Sans Docked
@@ -731,8 +739,8 @@ graph_year2022casual_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMo
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )+
   scale_fill_manual(values = c("#F8766D","#619CFF"))
 
@@ -751,8 +759,8 @@ graph_year2022casual_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bik
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -770,8 +778,8 @@ graph_year2022casual_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -790,8 +798,8 @@ graph_year2022casual_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 ```
@@ -801,7 +809,7 @@ graph_year2022casual_numOfBike_month_biketype_sansDocked
 graph_year2022casual_numOfBike_month_biketype
 ```
 
-From these graphs, we can see that, aside from the month of May and June, casual rider use more electric bikes compared to classic. Furthermore, from July to December, there is a significant increase of electric bikes being used over classic bikes.
+From these graphs, we can see that, aside from the month of May and June, casual riders use more electric bikes compared to classic. Furthermore, from July to December, there is a significant increase of electric bikes being used over classic bikes.
 
 To see a deeper dive into this data, you can [click here](#MoreViz1) to view each bike with number labels.
 
@@ -820,8 +828,8 @@ graph_year2022member_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 
 # Year 2022 Bike Popularity for Member Customers - Sans Docked
@@ -838,8 +846,8 @@ graph_year2022member_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMo
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )+
   scale_fill_manual(values = c("#F8766D","#619CFF"))
 
@@ -858,8 +866,8 @@ graph_year2022member_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bik
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -877,8 +885,8 @@ graph_year2022member_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -897,8 +905,8 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -909,46 +917,183 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
 graph_year2022member_numOfBike_month_biketype_sansDocked
 ```
 
-From this graph, we can see that, there are more classic bikes used compared to electric in from January to August, but then electric bikes are used more often from September to December.
+This data shows that classic bikes are used more compared to electric bikes in from January to August, but then electric bikes are used more often from September to December.
 
-This graph does not feature docked bikes due to members not using docked bikes. To see a deeper dive into this data, you can [click here](#MoreViz2) to view each bike with number labels.
+This graph does not feature docked bikes due to no reports of members using docked bikes. To see a deeper dive into this data, you can [click here](#MoreViz2) to view each bike with number labels.
 
-#### Trip Length
+#### <a name="Ref5"/>C.2.c Trip Length
 The final trend I wanted to check was to see the common length of trip between the customer types. However, I didn't want to take the average of length of every trip, but instead use quantiles to get a more accurate look at the trip lengths without taking outliers into consideration. The code can be found in the [Appendix here](#Appx5).
 
+```{r Year 2022 Q2 Bike Trip, Casual vs Member, echo=FALSE}
+# Creating a function to properly display time
+createTimeStamp = function(input_minute, input_second){
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+    as.character(input_second))
+  return = paste(input_minute,temp_second,sep = ":")
+}
 
+year_2022_q2_df_fixed <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_qAll_casual_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStamp(c(minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                              c(second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)))
+                                                              )
+                                     )
+
+
+
+ggplot(data=year_2022_q2_df_fixed,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual vs Member",
+       subtitle = "The second quantile of casual and member rider's length of time",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) +
+  scale_fill_manual(values = c("orange","violet"),name="Customer")
+
+
+```
+
+<a name="Ref6"/>
+From this graph, the data shows that casual customers use the service 4 to 9 minutes longer than members do. From here, I remembered that members don't use docked bikes, so I plotted the Q2 trip lengths for casual customers only using docked bikes. The code can be found in the [Appendix here](#Appx6).
+
+```{r Year 2022 Q2 Bike Trip, Casual - Docked, echo=FALSE}
+## Let's Check docked Bikes Casual
+
+year_2022_clean_casual_docked_bike <- subset(year_2022_clean,member_casual=="casual"& rideable_type=="docked_bike")
+
+#nrow(year_2022_clean_casual_docked_bike) # 176372 
+#nrow(subset(year_2022_clean,member_casual=="casual")) #2319783
+
+year_2022_qAll_casual_docked_bike_df <- create_df_q_data(year_2022_clean_casual_docked_bike,"casual")
+
+# Creating a function to properly display time, but this time it uses hour
+createTimeStampWHH = function(input_hour,input_minute, input_second){
+  temp_minute = ifelse(input_minute < 10,paste("0",input_minute,sep = ""),
+                       as.character(input_minute))
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+                       as.character(input_second))
+  return = ifelse(input_hour == 0,paste(input_minute,temp_second,sep = ":"),paste(input_hour,temp_minute,temp_second,sep = ":"))
+    
+}
+
+year_2022_q2_casual_docked_bike_df <- data.frame(day_of_week_num = c(year_2022_qAll_casual_docked_bike_df$day_of_week_num),
+                                           Q2 = c(year_2022_qAll_casual_docked_bike_df$Q2),
+                                           Q2seconds = hour(c(year_2022_qAll_casual_docked_bike_df$Q2))*60*60+minute(c(year_2022_qAll_casual_docked_bike_df$Q2))*60+second(c(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                           Q2Text = createTimeStampWHH(c(hour(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(minute(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(second(year_2022_qAll_casual_docked_bike_df$Q2))
+                                           )
+)
+
+ggplot(data=year_2022_q2_casual_docked_bike_df,aes(x=day_of_week_num,y=Q2seconds))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9), fill="red") +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual - Docked",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)",
+       legend="Customer")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '1:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) 
+```
+
+<a name="Ref7"/>
+The data shows a significant increase to the amount of time a casual customer uses the docked bikes. The following graph shows the comparison between the above graph and the member time from the graph before. The code can be found in the [Appendix here](#Appx7).
+
+```{r Year 2022 Q2 Bike Trip, Casual using Docked vs Member, echo=FALSE}
+# Now let's show it side by side with Members
+year_2022_q2_dockedcasualvsmember <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_q2_casual_docked_bike_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60*60+minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStampWHH(c(hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)))
+                                     )
+)
+
+
+
+ggplot(data=year_2022_q2_dockedcasualvsmember,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual using Docked vs Member",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes vs member's",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '01:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) +
+  scale_fill_manual(values = c("red","violet"),name="Customer")
+
+
+```
+
+With these three analyses, recommendations can be made. [Jump to Recommendations](#ptE)
+
+[Jump to Top](#toc)<br/>
 
 ## <a name="ptD" />D. Additional Supporting Visualizations
-### <a name="#MoreViz1" /> Year 2022 Bike Popularity, Casual Interactive
-[Jump to report location this is used](#VizRef1)
-```{r Year 2022 Bike Popularity Casual Three,figures-side , fig.show="hold", out.width="30%",fig.align='center', echo=FALSE}
+### <a name="#MoreViz1" /> [Jump to the report location the following is referenced](#VizRef1)
+
+```{r Year 2022 Bike Popularity Casual Three,figures-side , fig.show="hold", echo=FALSE}
 graph_year2022casual_numOfBike_month_classic
 graph_year2022casual_numOfBike_month_docked
 graph_year2022casual_numOfBike_month_electric
 ```
-### <a name="#MoreViz2" /> Year 2022 Bike Popularity, Member Interactive
-[Jump to report location this is used](#VizRef2)
-```{r Year 2022 Bike Popularity Member Three, figures-side, fig.show="hold", out.width="30%",fig.align='center', echo=FALSE}
+
+### <a name="#MoreViz2" /> [Jump to the report location the following is referenced](#VizRef2)
+
+```{r Year 2022 Bike Popularity Member Three, figures-side, fig.show="hold", echo=FALSE}
 graph_year2022member_numOfBike_month_classic
 graph_year2022member_numOfBike_month_docked
 graph_year2022member_numOfBike_month_electric
 ```
 
+[Jump to Top](#toc)<br/>
 
 ## <a name="ptE" />E. Recommendations
 
 After completion of the analysis, here are my three recommendations:
 
-1. Casual customers use bikes more frequently in the hot summer months. **Create summer promotions to help convert casual customers to members.**
-2. Casual customers use more electric bikes over classic bikes. **Creation promotions advertising electric-powered bikes. Increase number of electric bikes available.**
-3. Casual customers take more time on their trips through the service comparatively to current members. Current members also do not use docked bikes. **Advertising should include member testimonials about how much time is saved by not having to use the docked bikes.**
+1. **Create summer promotions to help convert casual customers to members.**
+* Casual customers use bikes more frequently in the summer months. 
+2. **Create promotions advertising electric-powered bikes. Increase number of electric bikes available.**
+* Casual customers use more electric bikes over classic bikes. 
+3. **Advertising should include member testimonials about how much time is saved by not having to use the docked bikes.**
+* Casual customers take longer trips through the service comparatively to current members, especially when it comes to docked bikes. 
+* Current members also do not use docked bikes. 
 
 ## <a name="ptF" />F. Appendix
 
 ### Bulky Code:
 This section contains code mentioned in the report. Code here will not evaluate.
 
-#### <a name="Appx1"/>Anaylsis Functions
+#### <a name="Appx1"/>F.1 Anaylsis Functions
 [Jump to report location this is used](#Ref1)
 ```{r APPX: Analysis Functions, include=TRUE, eval=FALSE}
 
@@ -1099,7 +1244,7 @@ find_bike_data <- function(input_clean_data_rideable_type,input_clean_data_membe
 }
 ```
 
-#### <a name="Appx2"/>Applying Functions to Clean Data
+#### <a name="Appx2"/>F.2 Applying Functions to Clean Data
 [Jump to report location this is used](#Ref2)
 ```{r APPX: Applying Functions to Clean Data, include=TRUE, eval=FALSE}
 # JANUARY
@@ -1269,7 +1414,7 @@ year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,ye
 year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
 ```
 
-#### <a name="Appx3"/>Year 2022 Customer Trip Frequency
+#### <a name="Appx3"/>F.3 Year 2022 Customer Trip Frequency
 [Jump to report location this is used](#Ref3)
 ```{r APPX: Year 2022 Customers Trip Frequency, include=TRUE, eval=FALSE}
 df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
@@ -1316,12 +1461,12 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 ```
 
-#### <a name="Appx4"/>Year 2022 Bike Preferences, Casual and Member
+#### <a name="Appx4"/>F.4 Year 2022 Bike Preferences, Casual and Member
 [Jump to report location this is used](#Ref4)
 ```{r APPX: Year 2022 Bike Preferences, include=TRUE, eval=FALSE}
 
@@ -1499,8 +1644,8 @@ graph_year2022casual_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 
 # Year 2022 Bike Popularity for Casual Customers - Sans Docked
@@ -1517,8 +1662,8 @@ graph_year2022casual_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMo
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )+
   scale_fill_manual(values = c("#F8766D","#619CFF"))
 
@@ -1537,8 +1682,8 @@ graph_year2022casual_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bik
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -1556,8 +1701,8 @@ graph_year2022casual_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -1576,8 +1721,8 @@ graph_year2022casual_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 ```
@@ -1602,8 +1747,8 @@ graph_year2022member_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )
 
 # Year 2022 Bike Popularity for Member Customers - Sans Docked
@@ -1620,8 +1765,8 @@ graph_year2022member_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMo
     breaks = seq_along(month.name), 
     labels = month.abb
   )  +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14)
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
   )+
   scale_fill_manual(values = c("#F8766D","#619CFF"))
 
@@ -1640,8 +1785,8 @@ graph_year2022member_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bik
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -1659,8 +1804,8 @@ graph_year2022member_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -1679,8 +1824,8 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
     breaks = seq_along(month.name), 
     labels = month.abb
   ) +
-  theme(plot.title = element_text(size = 24),
-        plot.subtitle = element_text(size = 14),
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12),
         legend.position = "none"
   ) 
 
@@ -1690,5 +1835,133 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
 graph_year2022member_numOfBike_month_biketype_sansDocked
 ```
 
-#### <a name="Appx5"/>Trip Length 
+#### <a name="Appx5"/>F.5 Trip Length, Casual vs Member
 [Jump to report location this is used](#Ref5)
+```{r APPX: Year 2022 Q2 Bike Trip, Casual vs Member, include=TRUE,eval=FALSE}
+# Creating a function to properly display time
+createTimeStamp = function(input_minute, input_second){
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+    as.character(input_second))
+  return = paste(input_minute,temp_second,sep = ":")
+}
+
+year_2022_q2_df_fixed <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_qAll_casual_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStamp(c(minute(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                              c(second(c(year_2022_qAll_casual_df$Q2,year_2022_qAll_member_df$Q2)))
+                                                              )
+                                     )
+
+
+
+ggplot(data=year_2022_q2_df_fixed,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual vs Member",
+       subtitle = "The second quantile of casual and member rider's length of time",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) +
+  scale_fill_manual(values = c("orange","violet"),name="Customer")
+
+
+```
+
+#### <a name="Appx6"/>F.6 Trip Length, Casual - Docked Bikes
+[Jump to report location this is used](#Ref6)
+```{r APPX: Year 2022 Q2 Bike Trip, Casual - Docked, include=TRUE,eval=FALSE}
+## Let's Check docked Bikes Casual
+
+year_2022_clean_casual_docked_bike <- subset(year_2022_clean,member_casual=="casual"& rideable_type=="docked_bike")
+
+#nrow(year_2022_clean_casual_docked_bike) # 176372 
+#nrow(subset(year_2022_clean,member_casual=="casual")) #2319783
+
+year_2022_qAll_casual_docked_bike_df <- create_df_q_data(year_2022_clean_casual_docked_bike,"casual")
+
+# Creating a function to properly display time, but this time it uses hour
+createTimeStampWHH = function(input_hour,input_minute, input_second){
+  temp_minute = ifelse(input_minute < 10,paste("0",input_minute,sep = ""),
+                       as.character(input_minute))
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+                       as.character(input_second))
+  return = ifelse(input_hour == 0,paste(input_minute,temp_second,sep = ":"),paste(input_hour,temp_minute,temp_second,sep = ":"))
+    
+}
+
+year_2022_q2_casual_docked_bike_df <- data.frame(day_of_week_num = c(year_2022_qAll_casual_docked_bike_df$day_of_week_num),
+                                           Q2 = c(year_2022_qAll_casual_docked_bike_df$Q2),
+                                           Q2seconds = hour(c(year_2022_qAll_casual_docked_bike_df$Q2))*60*60+minute(c(year_2022_qAll_casual_docked_bike_df$Q2))*60+second(c(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                           Q2Text = createTimeStampWHH(c(hour(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(minute(year_2022_qAll_casual_docked_bike_df$Q2)),
+                                                                       c(second(year_2022_qAll_casual_docked_bike_df$Q2))
+                                           )
+)
+
+ggplot(data=year_2022_q2_casual_docked_bike_df,aes(x=day_of_week_num,y=Q2seconds))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9), fill="red") +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual - Docked",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)",
+       legend="Customer")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '1:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) 
+```
+
+#### <a name="Appx7"/>F.7 Trip Length, Casual - Docked Bikes vs Member
+[Jump to report location this is used](#Ref7)
+```{r APPX: Year 2022 Q2 Bike Trip, Casual using Docked vs Member, include=TRUE,eval=FALSE}
+# Now let's show it side by side with Members
+year_2022_q2_dockedcasualvsmember <- data.frame (member_casual = rep(c("casual","member"),each=7),
+                                     day_of_week_num = c(year_2022_q2_casual_docked_bike_df$day_of_week_num,year_2022_qAll_member_df$day_of_week_num),
+                                     Q2 = c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2),
+                                     Q2seconds = hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60*60+minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))*60+second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)),
+                                     Q2Text = createTimeStampWHH(c(hour(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(minute(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2))),
+                                                                 c(second(c(year_2022_q2_casual_docked_bike_df$Q2,year_2022_qAll_member_df$Q2)))
+                                     )
+)
+
+
+
+ggplot(data=year_2022_q2_dockedcasualvsmember,aes(x=day_of_week_num,y=Q2seconds, fill=member_casual))+
+  geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
+  labs(title = "Year 2022 Q2 Bike Trip, Casual using Docked vs Member",
+       subtitle = "The second quantile of casual rider's length of time using docked bikes vs member's",
+       x="Day of the Week",
+       y="Length of Trip (HH:MM:SS)")+
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '01:10:00')))+
+  scale_x_continuous(
+    breaks = seq_along(days_of_the_week), 
+    labels = days_of_the_week
+  )  +
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 12)
+  ) +
+  scale_fill_manual(values = c("red","violet"),name="Customer")
+
+
+```
+
+[Jump to Top](#toc)<br/>

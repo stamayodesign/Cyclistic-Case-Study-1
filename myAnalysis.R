@@ -858,6 +858,7 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
 
 #----------------------------------------------------------------
 
+# Creating a function to properly display time
 createTimeStamp = function(input_minute, input_second){
   temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
     as.character(input_second))
@@ -957,6 +958,7 @@ nrow(subset(year_2022_clean,member_casual=="casual")) #2319783
 
 year_2022_qAll_casual_docked_bike_df <- create_df_q_data(year_2022_clean_casual_docked_bike,"casual")
 
+# Creating a function to properly display time, but this time it uses hour
 createTimeStampWHH = function(input_hour,input_minute, input_second){
   temp_minute = ifelse(input_minute < 10,paste("0",input_minute,sep = ""),
                        as.character(input_minute))

@@ -1,0 +1,1549 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Cyclistic Case Study},
+  pdfauthor={Steve Tamayo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Cyclistic Case Study}
+\author{Steve Tamayo}
+\date{2023-09-03}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+This is a report for the Case Study 1 of the Coursera Google Data
+Analytics Capstone.
+
+\hypertarget{table-of-contents}{%
+\subsection{Table of Contents}\label{table-of-contents}}
+
+\protect\hyperlink{pti}{i. Business Task Statement}
+\protect\hyperlink{ptA}{A. Data Sources} \protect\hyperlink{ptB}{B.
+Cleaning Documentation} \protect\hyperlink{ptC}{C. Analysis}
+\protect\hyperlink{ptD}{D. Additional Supporting Visualizations}
+\protect\hyperlink{ptE}{E. Recommendations} \protect\hyperlink{ptF}{F.
+Appendix}
+
+\hypertarget{business-task-statement}{%
+\subsection{Business Task Statement}\label{business-task-statement}}
+
+\hypertarget{how-do-annual-members-and-casual-riders-use-cyclistic-bikes-differently}{%
+\paragraph{``How do annual members and casual riders use Cyclistic bikes
+differently?''}\label{how-do-annual-members-and-casual-riders-use-cyclistic-bikes-differently}}
+
+Cyclistic is a (fictional) bike-share company in Chicago. In order to
+maximize the number of annual memberships, the team wants to understand
+the difference between casual riders (also referred to as ``casual
+customer'' or ``casual rider'') and annual members (also referred to as
+``member'').
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\hypertarget{a.-data-sources}{%
+\subsection{A. Data Sources}\label{a.-data-sources}}
+
+The data is downloaded from this website as zip files. The data has been
+provided according to the Divvy Data License Agreement. You can read
+more on their website.
+
+For this report, I have chosen to look at a complete year of data. As of
+this writing this report, the latest full year of data is from 2022. The
+
+The raw data for each month in 2022 was downloaded and placed in a
+folder labeled ``Raw Data'' in the project main folder.
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\hypertarget{b.-cleaning-documentation}{%
+\subsection{B. Cleaning Documentation}\label{b.-cleaning-documentation}}
+
+\hypertarget{b.1-excel-cleaning}{%
+\subsubsection{B.1 Excel Cleaning}\label{b.1-excel-cleaning}}
+
+After downloading the zip files, I unzipped the csv files and copied
+them to a new folder labeled CSV. I further copied these files to a file
+labeled ``Prepared Data'' to prepare them processing.
+
+Given the sizes of some of these files, spreadsheets was ruled out to
+handle the data as the June, July, and August reports were unable to be
+opened. However, they were processed in excel and then R.
+
+For all 12 CSVs, the following process was conducted:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The file was opened in Excel.
+\item
+  Columns I, J, K, and L were removed. These columns were determined to
+  not be relevant to this business task.
+\item
+  A new column J was labeled ``length\_of\_trip''
+\item
+  J2 was filled with ``=D2-C2'' to get the length of the trip. This was
+  then applied to all rows.
+\item
+  A new column K was labeled ``day\_of\_week''
+\item
+  K2 was filled with ``=WEEKDAY(C2,1)'' to get the day the trip started.
+  The ``1'' signifies that the numbering starts on ``Sunday'' with ``1''
+  and ends with ``Saturday'' with ``7''. This was then applied to all
+  rows.
+\item
+  Column K was then Formatted with the Custom h:mm:ss to get the format
+  to where it was needed for analysis.
+\item
+  The sheet was then sorted ``smallest to largest'' to determine if
+  there were any lengths that were in the negatives.
+\item
+  The rows that had negatives were adjusted by switching their start and
+  end times. Double check that the J column was still ``end-start''
+\item
+  The sheet was then resorted by ``started\_at'' (column C)
+\item
+  Columns J and K were then copied then pasted with just the values.
+\item
+  Finally, the CSV was renamed, appending ``\_Prepped'' to the original
+  file name. Example: ``202201-divvy0tripdata'' became
+  ``202201-divvy0tripdata\_Prepped''
+\end{enumerate}
+
+Following those 12 steps for the 12 CSVs, I loaded them into a new
+RStudio project.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jan\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202201{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{feb\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202202{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{mar\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202203{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{apr\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202204{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{may\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202205{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{jun\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202206{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{jul\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202207{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{aug\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202208{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{sep\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202209{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{oct\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202210{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{nov\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202211{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\NormalTok{dec\_2022 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"202212{-}divvy{-}tripdata\_Prepped.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.2-r-cleaning}{%
+\subsubsection{B.2 R Cleaning}\label{b.2-r-cleaning}}
+
+Upon loading the CSVs into R Studio, I came across a problem. Certain
+values of ``length\_of\_trip'' were being converted to N/A's.
+Investigating revealed that these values were not converting into the
+ISO8601 date format R was expecting. Looking further into the CSVs in
+Excel, these trip lengths were over a week long and therefore were
+determined to be outliers. Additionally, there were a number of trips
+that had 0 length. I conducted additional cleaning in R by creating the
+following function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Removes N/A, Trips with 0 length, and assigns the length of trip to a format accepted in R}
+\NormalTok{remove\_outliers }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(input\_dataframe)\{}
+\NormalTok{  tmp\_df }\OtherTok{\textless{}{-}} \FunctionTok{drop\_na}\NormalTok{(input\_dataframe,length\_of\_trip)}
+\NormalTok{  tmp\_df2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(tmp\_df,}\AttributeTok{length\_of\_trip\_r =} \FunctionTok{as.POSIXct}\NormalTok{(tmp\_df}\SpecialCharTok{$}\NormalTok{length\_of\_trip,}\AttributeTok{format=}\StringTok{"\%H:\%M:\%S"}\NormalTok{))}
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(tmp\_df2,length\_of\_trip\_r }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This function was then applied to each loaded file and assigned a new
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jan\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(jan\_2022)}
+\NormalTok{feb\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(feb\_2022)}
+\NormalTok{mar\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(mar\_2022)}
+\NormalTok{apr\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(apr\_2022)}
+\NormalTok{may\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(may\_2022)}
+\NormalTok{jun\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(jun\_2022)}
+\NormalTok{jul\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(jul\_2022)}
+\NormalTok{aug\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(aug\_2022)}
+\NormalTok{sep\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(sep\_2022)}
+\NormalTok{oct\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(oct\_2022)}
+\NormalTok{nov\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(nov\_2022)}
+\NormalTok{dec\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{remove\_outliers}\NormalTok{(dec\_2022)}
+\end{Highlighting}
+\end{Shaded}
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\hypertarget{c.-analysis}{%
+\subsection{C. Analysis}\label{c.-analysis}}
+
+\hypertarget{c.1-starting-tables}{%
+\subsubsection{C.1 Starting Tables}\label{c.1-starting-tables}}
+
+Now that the data is cleaned, it was time to aggregate the data into
+something more manageable. I created several functions to help with this
+process. The full code can be found in the
+\protect\hyperlink{Appx1}{Appendix here}.
+
+These functions were then able to be applied to all of the clean data. A
+master year data frame was also created and the functions applied to.
+Full code chunk is include in the \protect\hyperlink{Appx2}{Appendix
+here}.
+
+\begin{table}
+
+\caption{\label{tab:Year 2022 Clean, First 6 rows}Year 2022 Clean, First 10 rows}
+\centering
+\begin{tabular}[t]{l|l|l|l|l|l|l|l|l|l|r|l}
+\hline
+ride\_id & rideable\_type & started\_at & ended\_at & start\_station\_name & start\_station\_id & end\_station\_name & end\_station\_id & member\_casual & length\_of\_trip & day\_of\_week & length\_of\_trip\_r\\
+\hline
+C2F7DD78E82EC875 & electric\_bike & 1/13/2022 11:59 & 1/13/2022 12:02 & Glenwood Ave \& Touhy Ave & 525 & Clark St \& Touhy Ave & RP-007 & casual & 00:03:00 & 5 & 1970-01-01 00:03:00\\
+\hline
+A6CF8980A652D272 & electric\_bike & 1/10/2022 8:41 & 1/10/2022 8:46 & Glenwood Ave \& Touhy Ave & 525 & Clark St \& Touhy Ave & RP-007 & casual & 00:05:00 & 2 & 1970-01-01 00:05:00\\
+\hline
+BD0F91DFF741C66D & classic\_bike & 1/25/2022 4:53 & 1/25/2022 4:58 & Sheffield Ave \& Fullerton Ave & TA1306000016 & Greenview Ave \& Fullerton Ave & TA1307000001 & member & 00:05:00 & 3 & 1970-01-01 00:05:00\\
+\hline
+CBB80ED419105406 & classic\_bike & 1/4/2022 0:18 & 1/4/2022 0:33 & Clark St \& Bryn Mawr Ave & KA1504000151 & Paulina St \& Montrose Ave & TA1309000021 & casual & 00:15:00 & 3 & 1970-01-01 00:15:00\\
+\hline
+DDC963BFDDA51EEA & classic\_bike & 1/20/2022 1:31 & 1/20/2022 1:37 & Michigan Ave \& Jackson Blvd & TA1309000002 & State St \& Randolph St & TA1305000029 & member & 00:06:00 & 5 & 1970-01-01 00:06:00\\
+\hline
+A39C6F6CC0586C0B & classic\_bike & 1/11/2022 18:48 & 1/11/2022 18:51 & Wood St \& Chicago Ave & 637 & Honore St \& Division St & TA1305000034 & member & 00:03:00 & 3 & 1970-01-01 00:03:00\\
+\hline
+\end{tabular}
+\end{table}
+
+Additional tables display the following for each month or the whole year
+(Displaying full year only):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Number of trips for each month by member status and bike\_type (Casual
+  \& Member are separate)
+\end{enumerate}
+
+\begin{table}
+
+\caption{\label{tab:Example Number of Trips 2022 - Casual}Number of Trips, 2022 - Casual}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+day\_of\_week & classic\_bike & docked\_bike & electric\_bike & total\\
+\hline
+Sun & 158426 & 35481 & 194686 & 388593\\
+\hline
+Mon & 104169 & 22402 & 150836 & 277407\\
+\hline
+Tues & 96046 & 17661 & 149828 & 263535\\
+\hline
+Wed & 98282 & 17235 & 158611 & 274128\\
+\hline
+Thurs & 113725 & 19645 & 175680 & 309050\\
+\hline
+Fri & 122992 & 23228 & 188131 & 334351\\
+\hline
+Sat & 196999 & 40720 & 235000 & 472719\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:Example Number of Trips 2022 - Member}Number of Trips, 2022 - Member}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+day\_of\_week & classic\_bike & docked\_bike & electric\_bike & total\\
+\hline
+Sun & 201030 & 0 & 186059 & 387089\\
+\hline
+Mon & 247326 & 0 & 225837 & 473163\\
+\hline
+Tues & 268272 & 0 & 250149 & 518421\\
+\hline
+Wed & 266216 & 0 & 257476 & 523692\\
+\hline
+Thurs & 267349 & 0 & 264695 & 532044\\
+\hline
+Fri & 231700 & 0 & 235209 & 466909\\
+\hline
+Sat & 227240 & 0 & 215861 & 443101\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Quantiles of the length of trips for each month by day of the week
+  (Casual \& Member are separate)*
+\end{enumerate}
+
+\begin{table}
+
+\caption{\label{tab:Example Quantiles 2022 - Casual}Quantiles for Length of Trip, 2022 - Casual}
+\centering
+\begin{tabular}[t]{l|r|l|l|l|l}
+\hline
+day\_of\_week & day\_of\_week\_num & Q1 & Q2 & Q3 & Q4\\
+\hline
+Sun & 1 & 1970-01-01 00:10:30 & 1970-01-01 00:23:20 & 2023-09-03 04:03:28 & 2023-09-04 03:50:45\\
+\hline
+Mon & 2 & 1970-01-01 00:09:22 & 1970-01-01 00:22:50 & 2023-09-03 04:06:39 & 2023-09-04 03:55:55\\
+\hline
+Tues & 3 & 1970-01-01 00:08:42 & 1970-01-01 00:19:28 & 2023-09-03 04:05:21 & 2023-09-04 03:51:49\\
+\hline
+Wed & 4 & 1970-01-01 00:08:30 & 1970-01-01 00:17:47 & 2023-09-03 04:03:40 & 2023-09-04 03:57:35\\
+\hline
+Thurs & 5 & 1970-01-01 00:08:56 & 1970-01-01 00:20:04 & 2023-09-03 04:05:57 & 2023-09-04 03:56:55\\
+\hline
+Fri & 6 & 1970-01-01 00:09:25 & 1970-01-01 00:21:13 & 2023-09-03 04:05:48 & 2023-09-04 02:51:57\\
+\hline
+Sat & 7 & 1970-01-01 00:10:34 & 1970-01-01 00:23:04 & 2023-09-03 04:04:07 & 2023-09-04 03:59:56\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:Example Quantiles 2022 - Member}Quantiles for Length of Trip, 2022 - Member}
+\centering
+\begin{tabular}[t]{l|r|l|l|l|l}
+\hline
+day\_of\_week & day\_of\_week\_num & Q1 & Q2 & Q3 & Q4\\
+\hline
+Sun & 1 & 1970-01-01 00:06:51 & 1970-01-01 00:14:38 & 2023-09-03 04:02:50 & 2023-09-04 01:13:13\\
+\hline
+Mon & 2 & 1970-01-01 00:06:15 & 1970-01-01 00:13:17 & 2023-09-03 04:03:55 & 2023-09-04 03:13:47\\
+\hline
+Tues & 3 & 1970-01-01 00:06:27 & 1970-01-01 00:13:44 & 2023-09-03 04:04:24 & 2023-09-04 03:35:27\\
+\hline
+Wed & 4 & 1970-01-01 00:06:25 & 1970-01-01 00:13:21 & 2023-09-03 04:03:45 & 2023-09-04 01:19:43\\
+\hline
+Thurs & 5 & 1970-01-01 00:06:31 & 1970-01-01 00:14:00 & 2023-09-03 04:04:32 & 2023-09-04 03:54:45\\
+\hline
+Fri & 6 & 1970-01-01 00:06:35 & 1970-01-01 00:14:05 & 2023-09-03 04:04:23 & 2023-09-04 00:35:04\\
+\hline
+Sat & 7 & 1970-01-01 00:06:59 & 1970-01-01 00:14:38 & 2023-09-03 04:02:43 & 2023-09-04 03:59:50\\
+\hline
+\end{tabular}
+\end{table}
+
+*Separate tables for just the second Quantile, 50\% and below of trips,
+were also created for analysis purpose.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Additional tables to be used by functions (Not displayed for
+  convenience, but found in the \protect\hyperlink{Appx2}{Appendix
+  here})
+\end{enumerate}
+
+\hypertarget{c.2-trends-and-relationships}{%
+\subsubsection{C.2 Trends and
+Relationships}\label{c.2-trends-and-relationships}}
+
+The next step was to find trends in the data.
+
+\hypertarget{c.2.a-trip-frequency}{%
+\paragraph{C.2.a Trip Frequency}\label{c.2.a-trip-frequency}}
+
+The first thing I wanted to check was how many trips per month casual
+and member customers accrued. The code can be found in the
+\protect\hyperlink{Appx3}{Appendix here}.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/View graph_year2022_tripfreq_customer-1.pdf}
+
+The data shows that the number of trips for members peaked in August,
+while the number of trips for casual customers peaked a month earlier in
+July. And while the May to July data shows that there is a relatively
+equal amount of trips between casual customers and members, the rest of
+the year has far more members using the service compared to casual
+customers.
+
+\hypertarget{c.2.b-bike-preferences}{%
+\paragraph{C.2.b Bike Preferences}\label{c.2.b-bike-preferences}}
+
+The next trend to check was to see the difference between each bike type
+and how frequent each customer used each. The code can be found in the
+\protect\hyperlink{Appx4}{Appendix here}.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Casual-1.pdf}
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Casual-2.pdf}
+
+From these graphs, we can see that, aside from the month of May and
+June, casual riders use more electric bikes compared to classic.
+Furthermore, from July to December, there is a significant increase of
+electric bikes being used over classic bikes.
+
+To see a deeper dive into this data, you can
+\protect\hyperlink{MoreViz1}{click here} to view each bike with number
+labels.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Preferences Member-1.pdf}
+
+This data shows that classic bikes are used more compared to electric
+bikes in from January to August, but then electric bikes are used more
+often from September to December.
+
+This graph does not feature docked bikes due to no reports of members
+using docked bikes. To see a deeper dive into this data, you can
+\protect\hyperlink{MoreViz2}{click here} to view each bike with number
+labels.
+
+\hypertarget{c.2.c-trip-length}{%
+\paragraph{C.2.c Trip Length}\label{c.2.c-trip-length}}
+
+The final trend I wanted to check was to see the common length of trip
+between the customer types. However, I didn't want to take the average
+of length of every trip, but instead use quantiles to get a more
+accurate look at the trip lengths without taking outliers into
+consideration. The code can be found in the
+\protect\hyperlink{Appx5}{Appendix here}.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Q2 Bike Trip, Casual vs Member-1.pdf}
+
+From this graph, the data shows that casual customers use the service 4
+to 9 minutes longer than members do. From here, I remembered that
+members don't use docked bikes, so I plotted the Q2 trip lengths for
+casual customers only using docked bikes. The code can be found in the
+\protect\hyperlink{Appx6}{Appendix here}.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Q2 Bike Trip, Casual - Docked-1.pdf}
+
+The data shows a significant increase to the amount of time a casual
+customer uses the docked bikes. The following graph shows the comparison
+between the above graph and the member time from the graph before. The
+code can be found in the \protect\hyperlink{Appx7}{Appendix here}.
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Q2 Bike Trip, Casual using Docked vs Member-1.pdf}
+
+With these three analyses, recommendations can be made.
+\protect\hyperlink{ptE}{Jump to Recommendations}
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\hypertarget{d.-additional-supporting-visualizations}{%
+\subsection{D. Additional Supporting
+Visualizations}\label{d.-additional-supporting-visualizations}}
+
+\hypertarget{jump-to-the-report-location-the-following-is-referenced}{%
+\subsubsection{\texorpdfstring{ \protect\hyperlink{VizRef1}{Jump to the
+report location the following is
+referenced}}{ Jump to the report location the following is referenced}}\label{jump-to-the-report-location-the-following-is-referenced}}
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Casual Three,figures-side -1.pdf}
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Casual Three,figures-side -2.pdf}
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Casual Three,figures-side -3.pdf}
+
+\hypertarget{jump-to-the-report-location-the-following-is-referenced-1}{%
+\subsubsection{\texorpdfstring{ \protect\hyperlink{VizRef2}{Jump to the
+report location the following is
+referenced}}{ Jump to the report location the following is referenced}}\label{jump-to-the-report-location-the-following-is-referenced-1}}
+
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Member Three, figures-side-1.pdf}
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Member Three, figures-side-2.pdf}
+\includegraphics{report_cyclisticCaseStudy_v00-09022023_files/figure-latex/Year 2022 Bike Popularity Member Three, figures-side-3.pdf}
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\hypertarget{e.-recommendations}{%
+\subsection{E. Recommendations}\label{e.-recommendations}}
+
+After completion of the analysis, here are my three recommendations:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Create summer promotions to help convert casual customers to
+  members.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Casual customers use bikes more frequently in the summer months.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Create promotions advertising electric-powered bikes. Increase
+  number of electric bikes available.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Casual customers use more electric bikes over classic bikes.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Advertising should include member testimonials about how much
+  time is saved by not having to use the docked bikes.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Casual customers take longer trips through the service comparatively
+  to current members, especially when it comes to docked bikes.
+\item
+  Current members also do not use docked bikes.
+\end{itemize}
+
+\hypertarget{f.-appendix}{%
+\subsection{F. Appendix}\label{f.-appendix}}
+
+\hypertarget{bulky-code}{%
+\subsubsection{Bulky Code:}\label{bulky-code}}
+
+This section contains code mentioned in the report. Code here will not
+evaluate.
+
+\hypertarget{f.1-anaylsis-functions}{%
+\paragraph{F.1 Anaylsis Functions}\label{f.1-anaylsis-functions}}
+
+\protect\hyperlink{Ref1}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Function {-} Filters member status and day of the week}
+\NormalTok{filter\_mc\_dow }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(input\_cleandata,input\_MC,input\_dow)\{}
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(}\FunctionTok{select}\NormalTok{(input\_cleandata, ride\_id,rideable\_type,length\_of\_trip,day\_of\_week,member\_casual,length\_of\_trip\_r),}
+\NormalTok{                   member\_casual}\SpecialCharTok{==}\NormalTok{input\_MC }\SpecialCharTok{\&}\NormalTok{ day\_of\_week}\SpecialCharTok{==}\NormalTok{input\_dow)}
+\NormalTok{\}}
+
+\CommentTok{\# Function {-} Handle Quantile data}
+\DocumentationTok{\#\# Get all Quantile data and put it into a dataframe}
+\NormalTok{create\_df\_q\_data }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input\_cleandata,input\_MC)\{}
+  
+  \CommentTok{\# Get quantile for each day}
+\NormalTok{  tmp\_quantile\_1 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{1}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_2 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{2}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_3 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{3}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_4 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{4}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_5 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{5}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_6 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{6}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_7 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MC,}\DecValTok{7}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+  
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{day\_of\_week =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sun"}\NormalTok{,}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tues"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thurs"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{,}\StringTok{"Sat"}\NormalTok{),}
+                       \AttributeTok{day\_of\_week\_num =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{),}
+                       \AttributeTok{Q1 =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{                         tmp\_quantile\_1[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_2[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_3[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_4[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_5[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_6[}\DecValTok{2}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_7[}\DecValTok{2}\NormalTok{]}
+\NormalTok{                       ),}
+                       \AttributeTok{Q2 =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{                         tmp\_quantile\_1[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_2[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_3[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_4[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_5[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_6[}\DecValTok{3}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_7[}\DecValTok{3}\NormalTok{]}
+\NormalTok{                       ),}
+                       \AttributeTok{Q3 =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{                         tmp\_quantile\_1[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_2[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_3[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_4[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_5[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_6[}\DecValTok{4}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_7[}\DecValTok{4}\NormalTok{]}
+\NormalTok{                       ),}
+                       \AttributeTok{Q4 =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{                         tmp\_quantile\_1[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_2[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_3[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_4[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_5[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_6[}\DecValTok{5}\NormalTok{],}
+\NormalTok{                         tmp\_quantile\_7[}\DecValTok{5}\NormalTok{]}
+\NormalTok{                       )}
+\NormalTok{                       )}
+\NormalTok{\}}
+
+\CommentTok{\# Function {-} Create table of number of trips}
+\NormalTok{create\_df\_num\_of\_trips }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input\_cleandata,input\_MorC)\{}
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{day\_of\_week =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sun"}\NormalTok{,}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tues"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thurs"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{,}\StringTok{"Sat"}\NormalTok{),}
+                       \AttributeTok{num\_of\_trips =} \FunctionTok{c}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{1}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{2}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{3}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{4}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{5}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{6}\NormalTok{)),}
+                                        \FunctionTok{nrow}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{7}\NormalTok{))}
+\NormalTok{                       )}
+\NormalTok{  )}
+\NormalTok{\}}
+\CommentTok{\# Function {-} Create a table of number of trips that less than Q2}
+\NormalTok{create\_df\_num\_of\_trips\_q }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input\_cleandata,input\_MorC,input\_q)\{}
+  
+  
+\NormalTok{  tmp\_filter\_data\_MorC1 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC2 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{2}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC3 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{3}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC4 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{4}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC5 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{5}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC6 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{6}\NormalTok{)}
+\NormalTok{  tmp\_filter\_data\_MorC7 }\OtherTok{\textless{}{-}}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{7}\NormalTok{)}
+  
+  \CommentTok{\# Get quantile for each day}
+\NormalTok{  tmp\_quantile\_1 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{1}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_2 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{2}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_3 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{3}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_4 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{4}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_5 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{5}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_6 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{6}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+\NormalTok{  tmp\_quantile\_7 }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(}\FunctionTok{filter\_mc\_dow}\NormalTok{(input\_cleandata,input\_MorC,}\DecValTok{7}\NormalTok{)}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r,}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.25}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{1}\NormalTok{)) }
+  
+  
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{day\_of\_week =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sun"}\NormalTok{,}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tues"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thurs"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{,}\StringTok{"Sat"}\NormalTok{),}
+                       \AttributeTok{num\_of\_trips =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC1}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_1[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC2}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_2[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC3}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_3[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC4}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_4[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC5}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_5[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC6}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_6[input\_q]),}
+                                        \FunctionTok{sum}\NormalTok{(tmp\_filter\_data\_MorC7}\SpecialCharTok{$}\NormalTok{length\_of\_trip\_r }\SpecialCharTok{\textless{}=}\NormalTok{ tmp\_quantile\_7[input\_q])}
+\NormalTok{                                        )}
+\NormalTok{                      )}
+\NormalTok{\}}
+
+\CommentTok{\# Function {-} Find Num of Bikes Used per day per type of user}
+\DocumentationTok{\#\# Writing a function to make finding bike values cleaner}
+\NormalTok{find\_bike\_data }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input\_clean\_data\_rideable\_type,input\_clean\_data\_member\_casual,memberOrCasual,input\_clean\_data\_day\_of\_week)\{}
+\NormalTok{  return }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{day\_of\_week =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sun"}\NormalTok{,}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tues"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thurs"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{,}\StringTok{"Sat"}\NormalTok{),}
+                       \AttributeTok{classic\_bike =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{1}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{2}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{3}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{4}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{5}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{6}\NormalTok{),}
+                                        \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"classic\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{7}\NormalTok{)}
+\NormalTok{                                        ),}
+                       \AttributeTok{docked\_bike =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{1}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{2}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{3}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{4}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{5}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{6}\NormalTok{),}
+                                       \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"docked\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{7}\NormalTok{)}
+\NormalTok{                                       ),}
+                       \AttributeTok{electric\_bike =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{1}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{2}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{3}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{4}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{5}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{6}\NormalTok{),}
+                                         \FunctionTok{sum}\NormalTok{(input\_clean\_data\_rideable\_type }\SpecialCharTok{==} \StringTok{"electric\_bike"} \SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{7}\NormalTok{)}
+\NormalTok{                                       ),}
+                       \AttributeTok{total =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{1}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{2}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{3}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{4}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{5}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{6}\NormalTok{),}
+                                      \FunctionTok{sum}\NormalTok{(input\_clean\_data\_member\_casual}\SpecialCharTok{==}\NormalTok{memberOrCasual}\SpecialCharTok{\&}\NormalTok{ input\_clean\_data\_day\_of\_week }\SpecialCharTok{==} \DecValTok{7}\NormalTok{)}
+\NormalTok{                                      )}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.2-applying-functions-to-clean-data}{%
+\paragraph{F.2 Applying Functions to Clean
+Data}\label{f.2-applying-functions-to-clean-data}}
+
+\protect\hyperlink{Ref2}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# JANUARY}
+\NormalTok{jan\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jan\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jan\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jan\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jan\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jan\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jan\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jan\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jan\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jan\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{jan\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jan\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{jan\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{jan\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,jan\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+\CommentTok{\# FEBRUARY}
+\NormalTok{feb\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(feb\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{feb\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(feb\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{feb\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(feb\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{feb\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(feb\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{feb\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(feb\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{feb\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(feb\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{feb\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{feb\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,feb\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# MARCH}
+\NormalTok{mar\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(mar\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{mar\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(mar\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{mar\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(mar\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{mar\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(mar\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{mar\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(mar\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{mar\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(mar\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{mar\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{mar\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,mar\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+\CommentTok{\# APRIL}
+\NormalTok{apr\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(apr\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{apr\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(apr\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{apr\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(apr\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{apr\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(apr\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{apr\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(apr\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{apr\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(apr\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{apr\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{apr\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,apr\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# MAY}
+\NormalTok{may\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(may\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{may\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(may\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{may\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(may\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{may\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(may\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{may\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(may\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{may\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(may\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{may\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(may\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,may\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,may\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{may\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(may\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,may\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,may\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# JUNE}
+\NormalTok{jun\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jun\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jun\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jun\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jun\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jun\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jun\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jun\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jun\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jun\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{jun\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jun\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{jun\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{jun\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,jun\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# JULY}
+\NormalTok{jul\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jul\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jul\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(jul\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jul\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jul\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{jul\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(jul\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{jul\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jul\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{jul\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(jul\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{jul\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{jul\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,jul\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# AUGUST}
+\NormalTok{aug\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(aug\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{aug\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(aug\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{aug\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(aug\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{aug\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(aug\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{aug\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(aug\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{aug\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(aug\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{aug\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{aug\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,aug\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# SEPTEMBER}
+\NormalTok{sep\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(sep\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{sep\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(sep\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{sep\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(sep\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{sep\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(sep\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{sep\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(sep\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{sep\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(sep\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{sep\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{sep\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,sep\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+
+\CommentTok{\# OCTOBER}
+\NormalTok{oct\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(oct\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{oct\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(oct\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{oct\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(oct\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{oct\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(oct\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{oct\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(oct\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{oct\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(oct\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{oct\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{oct\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,oct\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+\CommentTok{\# NOVEMBER}
+\NormalTok{nov\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(nov\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{nov\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(nov\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{nov\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(nov\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{nov\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(nov\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{nov\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(nov\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{nov\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(nov\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{nov\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{nov\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,nov\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+\CommentTok{\# DECEMBER}
+\NormalTok{dec\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(dec\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{dec\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(dec\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{dec\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(dec\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{dec\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(dec\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{dec\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(dec\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{dec\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(dec\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{dec\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{dec\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,dec\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+
+\CommentTok{\# 2022}
+\NormalTok{year\_2022\_clean }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(jan\_2022\_clean, feb\_2022\_clean, mar\_2022\_clean, apr\_2022\_clean, }
+\NormalTok{                         may\_2022\_clean, jun\_2022\_clean, jul\_2022\_clean, aug\_2022\_clean, }
+\NormalTok{                         sep\_2022\_clean, oct\_2022\_clean, nov\_2022\_clean, dec\_2022\_clean)}
+\NormalTok{year\_2022\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(year\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{year\_2022\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips}\NormalTok{(year\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{year\_2022\_qAll\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(year\_2022\_clean,}\StringTok{"casual"}\NormalTok{)}
+\NormalTok{year\_2022\_qAll\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(year\_2022\_clean,}\StringTok{"member"}\NormalTok{)}
+\NormalTok{year\_2022\_q2\_casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(year\_2022\_clean,}\StringTok{"casual"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{year\_2022\_q2\_member\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_num\_of\_trips\_q}\NormalTok{(year\_2022\_clean,}\StringTok{"member"}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\CommentTok{\# Determining Most Popular Type of Bike}
+\CommentTok{\# classic\_bike, docked\_bike, electric\_bike}
+\NormalTok{year\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(year\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,year\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"casual"}\NormalTok{,year\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\NormalTok{year\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{find\_bike\_data}\NormalTok{(year\_2022\_clean}\SpecialCharTok{$}\NormalTok{rideable\_type,year\_2022\_clean}\SpecialCharTok{$}\NormalTok{member\_casual,}\StringTok{"member"}\NormalTok{,year\_2022\_clean}\SpecialCharTok{$}\NormalTok{day\_of\_week)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.3-year-2022-customer-trip-frequency}{%
+\paragraph{F.3 Year 2022 Customer Trip
+Frequency}\label{f.3-year-2022-customer-trip-frequency}}
+
+\protect\hyperlink{Ref3}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_customer\_numOfTrip\_vMonth }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{customer\_type =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"casual"}\NormalTok{,}\StringTok{"member"}\NormalTok{),}\AttributeTok{each=}\DecValTok{12}\NormalTok{),}
+                                           \AttributeTok{monthNum =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{)),}\DecValTok{2}\NormalTok{),}
+                                           \AttributeTok{num\_of\_trips =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(jan\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(feb\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(mar\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(apr\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(may\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(jun\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(jul\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(aug\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(sep\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(oct\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(nov\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(dec\_2022\_casual\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(jan\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(feb\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(mar\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(apr\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(may\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(jun\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(jul\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(aug\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(sep\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(oct\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(nov\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips),}
+                                             \FunctionTok{sum}\NormalTok{(dec\_2022\_member\_df}\SpecialCharTok{$}\NormalTok{num\_of\_trips)}
+\NormalTok{                                             )}
+\NormalTok{                                          )}
+
+\NormalTok{graph\_year2022\_tripfreq\_customer }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{df\_customer\_numOfTrip\_vMonth,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{num\_of\_trips, }\AttributeTok{fill =}\NormalTok{ customer\_type)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{86}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Customers\textquotesingle{} Trip Frequency"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Number of Trips per month"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Per Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Number of Trips (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name=}\StringTok{"Customer"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(num\_of\_trips}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{2.75}\NormalTok{,}\AttributeTok{hjust=} \DecValTok{1}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\SpecialCharTok{{-}}\DecValTok{60}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.4-year-2022-bike-preferences-casual-and-member}{%
+\paragraph{F.4 Year 2022 Bike Preferences, Casual and
+Member}\label{f.4-year-2022-bike-preferences-casual-and-member}}
+
+\protect\hyperlink{Ref4}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{month =} \FunctionTok{c}\NormalTok{(}\StringTok{"Jan"}\NormalTok{,}\StringTok{"Feb"}\NormalTok{,}\StringTok{"Mar"}\NormalTok{,}\StringTok{"Apr"}\NormalTok{,}\StringTok{"May"}\NormalTok{,}\StringTok{"Jun"}\NormalTok{,}\StringTok{"Jul"}\NormalTok{,}\StringTok{"Aug"}\NormalTok{,}\StringTok{"Sep"}\NormalTok{,}\StringTok{"Oct"}\NormalTok{,}\StringTok{"Nov"}\NormalTok{,}\StringTok{"Dec"}\NormalTok{),}
+  \AttributeTok{monthNum =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{),}
+  \AttributeTok{classic\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike)}
+\NormalTok{  ) ,}
+  \AttributeTok{docked\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike)}
+\NormalTok{  ) ,}
+  \AttributeTok{electric\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{  ),}
+  \AttributeTok{total =} \FunctionTok{c}\NormalTok{( }
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{month =} \FunctionTok{c}\NormalTok{(}\StringTok{"Jan"}\NormalTok{,}\StringTok{"Feb"}\NormalTok{,}\StringTok{"Mar"}\NormalTok{,}\StringTok{"Apr"}\NormalTok{,}\StringTok{"May"}\NormalTok{,}\StringTok{"Jun"}\NormalTok{,}\StringTok{"Jul"}\NormalTok{,}\StringTok{"Aug"}\NormalTok{,}\StringTok{"Sep"}\NormalTok{,}\StringTok{"Oct"}\NormalTok{,}\StringTok{"Nov"}\NormalTok{,}\StringTok{"Dec"}\NormalTok{),}
+  \AttributeTok{monthNum =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{),}
+  \AttributeTok{classic\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike)}
+\NormalTok{  ) ,}
+  \AttributeTok{docked\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike)}
+\NormalTok{  ) ,}
+  \AttributeTok{electric\_bike =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{  ),}
+  \AttributeTok{total =} \FunctionTok{c}\NormalTok{( }
+    \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jan\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(feb\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(mar\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(apr\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(may\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jun\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(jul\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(aug\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(sep\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(oct\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(nov\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike),}
+    \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(dec\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\CommentTok{\# Adjust Table for Bar Plot}
+\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_subgrouped\_df }\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{biketype =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"classic"}\NormalTok{,}\StringTok{"docked"}\NormalTok{,}\StringTok{"electric"}\NormalTok{),}\AttributeTok{each=}\DecValTok{12}\NormalTok{),}
+                                                             \AttributeTok{monthNum =} \FunctionTok{rep}\NormalTok{(yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{monthNum,}\DecValTok{3}\NormalTok{),}
+                                                             \AttributeTok{num\_of\_bike =} \FunctionTok{c}\NormalTok{(yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike,}
+\NormalTok{                                                                             yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{docked\_bike,}
+\NormalTok{                                                                             yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{                                                             )}
+
+\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_subgrouped\_df }\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{biketype =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"classic"}\NormalTok{,}\StringTok{"docked"}\NormalTok{,}\StringTok{"electric"}\NormalTok{),}\AttributeTok{each=}\DecValTok{12}\NormalTok{),}
+                                                             \AttributeTok{monthNum =} \FunctionTok{rep}\NormalTok{(yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{monthNum,}\DecValTok{3}\NormalTok{),}
+                                                             \AttributeTok{num\_of\_bike =} \FunctionTok{c}\NormalTok{(yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike,}
+\NormalTok{                                                                             yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{docked\_bike,}
+\NormalTok{                                                                             yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{)}
+
+\CommentTok{\# Get Year By Month but remove docked}
+\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_subgrouped\_sansDocked\_df }\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{biketype =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"classic"}\NormalTok{,}\StringTok{"electric"}\NormalTok{),}\AttributeTok{each=}\DecValTok{12}\NormalTok{),}
+                                                             \AttributeTok{monthNum =} \FunctionTok{rep}\NormalTok{(yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{monthNum,}\DecValTok{2}\NormalTok{),}
+                                                             \AttributeTok{num\_of\_bike =} \FunctionTok{c}\NormalTok{(yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{classic\_bike,}
+\NormalTok{                                                                             yearByMonth\_2022\_bike\_type\_Casual\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{)}
+
+\CommentTok{\# Get Year By Month but remove docked}
+\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_subgrouped\_sansDocked\_df }\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{biketype =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"classic"}\NormalTok{,}\StringTok{"electric"}\NormalTok{),}\AttributeTok{each=}\DecValTok{12}\NormalTok{),}
+                                                                        \AttributeTok{monthNum =} \FunctionTok{rep}\NormalTok{(yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{monthNum,}\DecValTok{2}\NormalTok{),}
+                                                                        \AttributeTok{num\_of\_bike =} \FunctionTok{c}\NormalTok{(yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{classic\_bike,}
+\NormalTok{                                                                                        yearByMonth\_2022\_bike\_type\_Member\_df}\SpecialCharTok{$}\NormalTok{electric\_bike)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Used to label plots}
+\NormalTok{days\_of\_the\_week }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Sunday"}\NormalTok{, }\StringTok{"Monday"}\NormalTok{, }\StringTok{"Tuesday"}\NormalTok{, }\StringTok{"Wednesday"}\NormalTok{, }
+                      \StringTok{"Thursday"}\NormalTok{, }\StringTok{"Friday"}\NormalTok{, }\StringTok{"Saturday"}\NormalTok{)}
+
+\CommentTok{\# Year 2022 Bike Popularity for Casual Customers}
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_biketype }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_subgrouped\_df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{num\_of\_bike, }\AttributeTok{fill =}\NormalTok{ biketype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Casual"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of each bike used by Casual Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"*K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\#geom\_text(aes(label = signif(num\_of\_bike)), nudge\_y = 3) +}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# Year 2022 Bike Popularity for Casual Customers {-} Sans Docked}
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_biketype\_sansDocked }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_subgrouped\_sansDocked\_df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{num\_of\_bike, }\AttributeTok{fill =}\NormalTok{ biketype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Casual**"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of either classic or electic bike used by Casual Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"**This graph does not feature docked bikes, *K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\#geom\_text(aes(label = signif(num\_of\_bike)), nudge\_y = 3) +}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  )}\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#F8766D"}\NormalTok{,}\StringTok{"\#619CFF"}\NormalTok{))}
+
+\CommentTok{\# Individual}
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_classic }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{classic\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill =} \StringTok{"\#F8766D"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Casual {-} Classic"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of classic bikes used by Casual Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(classic\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_docked }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{docked\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\FloatTok{0.9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill=}\StringTok{"\#00BA38"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Casual {-} Docked"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of docked bikes used by Casual Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(docked\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+
+
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_electric }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Casual\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{electric\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\FloatTok{0.9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill=}\StringTok{"\#619CFF"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Casual {-} Electric"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of electric bikes used by Casual Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(electric\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_biketype\_sansDocked}
+\NormalTok{graph\_year2022casual\_numOfBike\_month\_biketype}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Year 2022 Bike Popularity for Member Customers}
+\NormalTok{graph\_year2022member\_numOfBike\_month\_biketype }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_subgrouped\_df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{num\_of\_bike, }\AttributeTok{fill =}\NormalTok{ biketype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Member"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of each bike used by Member Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"*K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\#geom\_text(aes(label = signif(num\_of\_bike)), nudge\_y = 3) +}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# Year 2022 Bike Popularity for Member Customers {-} Sans Docked}
+\NormalTok{graph\_year2022member\_numOfBike\_month\_biketype\_sansDocked }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_subgrouped\_sansDocked\_df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{num\_of\_bike, }\AttributeTok{fill =}\NormalTok{ biketype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Member**"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of either classic or electic bike used by Member Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"**This graph does not feature docked bikes, *K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\#geom\_text(aes(label = signif(num\_of\_bike)), nudge\_y = 3) +}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  )}\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#F8766D"}\NormalTok{,}\StringTok{"\#619CFF"}\NormalTok{))}
+
+\CommentTok{\# Individual}
+\NormalTok{graph\_year2022member\_numOfBike\_month\_classic }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{classic\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill =} \StringTok{"\#F8766D"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Member {-} Classic"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of classic bikes used by Member Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(classic\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+
+\NormalTok{graph\_year2022member\_numOfBike\_month\_docked }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{docked\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\FloatTok{0.9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill=}\StringTok{"\#00BA38"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Member {-} Docked"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of docked bikes used by Member Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(docked\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+
+
+\NormalTok{graph\_year2022member\_numOfBike\_month\_electric }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{yearByMonth\_2022\_bike\_type\_Member\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{monthNum,}\AttributeTok{y=}\NormalTok{electric\_bike)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\FloatTok{0.9}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\DecValTok{1}\NormalTok{), }\AttributeTok{fill=}\StringTok{"\#619CFF"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Bike Popularity, Member {-} Electric"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Amount of electric bikes used by Member Customers"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Month"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Amount of Bikes Used (K*)"}\NormalTok{,}
+       \AttributeTok{caption=}\StringTok{"K stands for 1000"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{floor}\NormalTok{(electric\_bike}\SpecialCharTok{/} \DecValTok{100}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{),}\StringTok{" K"}\NormalTok{,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{75}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{250000}\NormalTok{) ,}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" K"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(month.name), }
+    \AttributeTok{labels =}\NormalTok{ month.abb}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph\_year2022member\_numOfBike\_month\_biketype\_sansDocked}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.5-trip-length-casual-vs-member}{%
+\paragraph{F.5 Trip Length, Casual vs
+Member}\label{f.5-trip-length-casual-vs-member}}
+
+\protect\hyperlink{Ref5}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Creating a function to properly display time}
+\NormalTok{createTimeStamp }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(input\_minute, input\_second)\{}
+\NormalTok{  temp\_second }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(input\_second }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{,}\FunctionTok{paste}\NormalTok{(}\StringTok{"0"}\NormalTok{,input\_second,}\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+    \FunctionTok{as.character}\NormalTok{(input\_second))}
+\NormalTok{  return }\OtherTok{=} \FunctionTok{paste}\NormalTok{(input\_minute,temp\_second,}\AttributeTok{sep =} \StringTok{":"}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{year\_2022\_q2\_df\_fixed }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{ (}\AttributeTok{member\_casual =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"casual"}\NormalTok{,}\StringTok{"member"}\NormalTok{),}\AttributeTok{each=}\DecValTok{7}\NormalTok{),}
+                                     \AttributeTok{day\_of\_week\_num =} \FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{day\_of\_week\_num,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{day\_of\_week\_num),}
+                                     \AttributeTok{Q2 =} \FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2),}
+                                     \AttributeTok{Q2seconds =} \FunctionTok{minute}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{+}\FunctionTok{second}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2)),}
+                                     \AttributeTok{Q2Text =} \FunctionTok{createTimeStamp}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{minute}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))),}
+                                                              \FunctionTok{c}\NormalTok{(}\FunctionTok{second}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2)))}
+\NormalTok{                                                              )}
+\NormalTok{                                     )}
+
+
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{year\_2022\_q2\_df\_fixed,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{day\_of\_week\_num,}\AttributeTok{y=}\NormalTok{Q2seconds, }\AttributeTok{fill=}\NormalTok{member\_casual))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{86}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Q2 Bike Trip, Casual vs Member"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"The second quantile of casual and member rider\textquotesingle{}s length of time"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Day of the Week"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Length of Trip (HH:MM:SS)"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Q2Text ),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{5}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_time}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{as.hms}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}00:00:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}00:30:00\textquotesingle{}}\NormalTok{)))}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(days\_of\_the\_week), }
+    \AttributeTok{labels =}\NormalTok{ days\_of\_the\_week}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"orange"}\NormalTok{,}\StringTok{"violet"}\NormalTok{),}\AttributeTok{name=}\StringTok{"Customer"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.6-trip-length-casual---docked-bikes}{%
+\paragraph{F.6 Trip Length, Casual - Docked
+Bikes}\label{f.6-trip-length-casual---docked-bikes}}
+
+\protect\hyperlink{Ref6}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Let\textquotesingle{}s Check docked Bikes Casual}
+
+\NormalTok{year\_2022\_clean\_casual\_docked\_bike }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(year\_2022\_clean,member\_casual}\SpecialCharTok{==}\StringTok{"casual"}\SpecialCharTok{\&}\NormalTok{ rideable\_type}\SpecialCharTok{==}\StringTok{"docked\_bike"}\NormalTok{)}
+
+\CommentTok{\#nrow(year\_2022\_clean\_casual\_docked\_bike) \# 176372 }
+\CommentTok{\#nrow(subset(year\_2022\_clean,member\_casual=="casual")) \#2319783}
+
+\NormalTok{year\_2022\_qAll\_casual\_docked\_bike\_df }\OtherTok{\textless{}{-}} \FunctionTok{create\_df\_q\_data}\NormalTok{(year\_2022\_clean\_casual\_docked\_bike,}\StringTok{"casual"}\NormalTok{)}
+
+\CommentTok{\# Creating a function to properly display time, but this time it uses hour}
+\NormalTok{createTimeStampWHH }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(input\_hour,input\_minute, input\_second)\{}
+\NormalTok{  temp\_minute }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(input\_minute }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{,}\FunctionTok{paste}\NormalTok{(}\StringTok{"0"}\NormalTok{,input\_minute,}\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+                       \FunctionTok{as.character}\NormalTok{(input\_minute))}
+\NormalTok{  temp\_second }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(input\_second }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{,}\FunctionTok{paste}\NormalTok{(}\StringTok{"0"}\NormalTok{,input\_second,}\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+                       \FunctionTok{as.character}\NormalTok{(input\_second))}
+\NormalTok{  return }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(input\_hour }\SpecialCharTok{==} \DecValTok{0}\NormalTok{,}\FunctionTok{paste}\NormalTok{(input\_minute,temp\_second,}\AttributeTok{sep =} \StringTok{":"}\NormalTok{),}\FunctionTok{paste}\NormalTok{(input\_hour,temp\_minute,temp\_second,}\AttributeTok{sep =} \StringTok{":"}\NormalTok{))}
+    
+\NormalTok{\}}
+
+\NormalTok{year\_2022\_q2\_casual\_docked\_bike\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{day\_of\_week\_num =} \FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{day\_of\_week\_num),}
+                                           \AttributeTok{Q2 =} \FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2),}
+                                           \AttributeTok{Q2seconds =} \FunctionTok{hour}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2))}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{+}\FunctionTok{minute}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2))}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{+}\FunctionTok{second}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2)),}
+                                           \AttributeTok{Q2Text =} \FunctionTok{createTimeStampWHH}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{hour}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2)),}
+                                                                       \FunctionTok{c}\NormalTok{(}\FunctionTok{minute}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2)),}
+                                                                       \FunctionTok{c}\NormalTok{(}\FunctionTok{second}\NormalTok{(year\_2022\_qAll\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2))}
+\NormalTok{                                           )}
+\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{year\_2022\_q2\_casual\_docked\_bike\_df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{day\_of\_week\_num,}\AttributeTok{y=}\NormalTok{Q2seconds))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{86}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{), }\AttributeTok{fill=}\StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Q2 Bike Trip, Casual {-} Docked"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"The second quantile of casual rider\textquotesingle{}s length of time using docked bikes"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Day of the Week"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Length of Trip (HH:MM:SS)"}\NormalTok{,}
+       \AttributeTok{legend=}\StringTok{"Customer"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Q2Text ),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{4.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{5}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_time}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{as.hms}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}00:00:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}1:10:00\textquotesingle{}}\NormalTok{)))}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(days\_of\_the\_week), }
+    \AttributeTok{labels =}\NormalTok{ days\_of\_the\_week}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{f.7-trip-length-casual---docked-bikes-vs-member}{%
+\paragraph{F.7 Trip Length, Casual - Docked Bikes vs
+Member}\label{f.7-trip-length-casual---docked-bikes-vs-member}}
+
+\protect\hyperlink{Ref7}{Jump to report location this is used}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Now let\textquotesingle{}s show it side by side with Members}
+\NormalTok{year\_2022\_q2\_dockedcasualvsmember }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{ (}\AttributeTok{member\_casual =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"casual"}\NormalTok{,}\StringTok{"member"}\NormalTok{),}\AttributeTok{each=}\DecValTok{7}\NormalTok{),}
+                                     \AttributeTok{day\_of\_week\_num =} \FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{day\_of\_week\_num,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{day\_of\_week\_num),}
+                                     \AttributeTok{Q2 =} \FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2),}
+                                     \AttributeTok{Q2seconds =} \FunctionTok{hour}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{+}\FunctionTok{minute}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))}\SpecialCharTok{*}\DecValTok{60}\SpecialCharTok{+}\FunctionTok{second}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2)),}
+                                     \AttributeTok{Q2Text =} \FunctionTok{createTimeStampWHH}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{hour}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))),}
+                                                                 \FunctionTok{c}\NormalTok{(}\FunctionTok{minute}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2))),}
+                                                                 \FunctionTok{c}\NormalTok{(}\FunctionTok{second}\NormalTok{(}\FunctionTok{c}\NormalTok{(year\_2022\_q2\_casual\_docked\_bike\_df}\SpecialCharTok{$}\NormalTok{Q2,year\_2022\_qAll\_member\_df}\SpecialCharTok{$}\NormalTok{Q2)))}
+\NormalTok{                                     )}
+\NormalTok{)}
+
+
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{year\_2022\_q2\_dockedcasualvsmember,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{day\_of\_week\_num,}\AttributeTok{y=}\NormalTok{Q2seconds, }\AttributeTok{fill=}\NormalTok{member\_casual))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{width=}\NormalTok{.}\DecValTok{86}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\NormalTok{.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Year 2022 Q2 Bike Trip, Casual using Docked vs Member"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"The second quantile of casual rider\textquotesingle{}s length of time using docked bikes vs member\textquotesingle{}s"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Day of the Week"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Length of Trip (HH:MM:SS)"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Q2Text ),}
+            \AttributeTok{position =} \FunctionTok{position\_dodge2}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{preserve =} \StringTok{"single"}\NormalTok{),}\AttributeTok{size=}\FloatTok{3.5}\NormalTok{,}\AttributeTok{hjust=}\NormalTok{ .}\DecValTok{5}\NormalTok{,}\AttributeTok{vjust=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{5}\NormalTok{,}\AttributeTok{angle=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_time}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{as.hms}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}00:00:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}01:10:00\textquotesingle{}}\NormalTok{)))}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{seq\_along}\NormalTok{(days\_of\_the\_week), }
+    \AttributeTok{labels =}\NormalTok{ days\_of\_the\_week}
+\NormalTok{  )  }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"violet"}\NormalTok{),}\AttributeTok{name=}\StringTok{"Customer"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\protect\hyperlink{toc}{Jump to Top}
+
+\end{document}
