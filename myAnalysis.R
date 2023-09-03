@@ -857,13 +857,30 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
 
 #----------------------------------------------------------------
 
-ggplot(data=year_2022_qAll_casual_df,aes(x=day_of_week_num,y=Q2))+
+createTimeStamp = function(input_minute, input_second){
+  temp_second = ifelse(input_second < 10,paste("0",input_second,sep = ""),
+    as.character(input_second))
+  return = paste(input_minute,temp_second,sep = ":")
+}
+
+year_2022_q2_casual_df_fixed <- data.frame(day_of_week_num = c(year_2022_qAll_casual_df$day_of_week_num),
+                                           Q2 = c(year_2022_qAll_casual_df$Q2),
+                                           Q2seconds = minute(c(year_2022_qAll_casual_df$Q2))*60+second(c(year_2022_qAll_casual_df$Q2)),
+                                           Q2Text = createTimeStamp(c(minute(year_2022_qAll_casual_df$Q2)),
+                                                                    c(second(year_2022_qAll_casual_df$Q2))
+                                                                    )
+                                           )
+
+library(hms)
+ggplot(data=year_2022_q2_casual_df_fixed,aes(x=day_of_week_num,y=Q2seconds))+
   geom_bar(stat = "identity",width=.86,position=position_dodge(width=.9)) +
   labs(title = "",
        subtitle = "",
        x="",
        y="")+
-  scale_y_continuous(limits = c(0,2000) ,labels = label_number(suffix = "", scale = 1e-3)) +
+  geom_text(aes(label = Q2Text ),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=4.5,hjust= .5,vjust=-.5,angle=0) +
+  scale_y_time(limits = as.hms(c('00:00:00', '00:30:00')))+
   scale_x_continuous(
     breaks = seq_along(days_of_the_week), 
     labels = days_of_the_week
@@ -871,3 +888,4 @@ ggplot(data=year_2022_qAll_casual_df,aes(x=day_of_week_num,y=Q2))+
   theme(plot.title = element_text(size = 24),
         plot.subtitle = element_text(size = 14)
   ) 
+

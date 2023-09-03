@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-#rm(list=ls())
+#rm(list=ls()) #reset envionment
 knitr::opts_chunk$set(echo = TRUE,warning = FALSE, message = FALSE)
 library(tidyverse)  #helps wrangle data
 library(lubridate)  #helps wrangle date attributes
@@ -466,6 +466,7 @@ kable(year_2022_qAll_casual_df,caption = "Quantiles for Length of Trip, 2022 - C
 kable(year_2022_qAll_member_df,caption = "Quantiles for Length of Trip, 2022 - Member") %>% 
   kable_styling()
 ```
+
 *Separate tables for just the second Quantile, 50% and below of trips, were also created for analysis purpose. 
 
 3. Additional tables to be used by functions (Not displayed for convenient, but found in the [Appendix here](#Appx2))
@@ -526,7 +527,7 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
   )
 ```
 
-```{r View graph_year2022_tripfreq_customer}
+```{r View graph_year2022_tripfreq_customer, echo=FALSE}
 graph_year2022_tripfreq_customer
 ```
 
@@ -794,11 +795,10 @@ graph_year2022casual_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
   ) 
 ```
 
-```{r Year 2022 Bike Popularity Casual}
+```{r Year 2022 Bike Popularity Casual, echo=FALSE}
 graph_year2022casual_numOfBike_month_biketype_sansDocked
 graph_year2022casual_numOfBike_month_biketype
 ```
-You can click between the two preview graphs to see the data without the docked bikes.
 
 From these graphs, we can see that, aside from the month of May and June, casual rider use more electric bikes compared to classic. Furthermore, from July to December, there is a significant increase of electric bikes being used over classic bikes.
 
@@ -904,9 +904,10 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
 ```
 
 <a name="VizRef2" />
-```{r Year 2022 Bike Preferences Member }
+```{r Year 2022 Bike Preferences Member, echo=FALSE }
 graph_year2022member_numOfBike_month_biketype_sansDocked
 ```
+
 From this graph, we can see that, there are more classic bikes used compared to electric in from January to August, but then electric bikes are used more often from September to December.
 
 This graph does not feature docked bikes due to members not using docked bikes. To see a deeper dive into this data, you can [click here](#MoreViz2) to view each bike with number labels.
@@ -919,14 +920,14 @@ The final trend I wanted to check was to see the common length of trip between t
 ## <a name="ptD" />D. Additional Supporting Visualizations
 ### <a name="#MoreViz1" /> Year 2022 Bike Popularity, Casual Interactive
 [Jump to report location this is used](#VizRef1)
-```{r figures-side Casual, fig.show="hold", out.width="20%",fig.align='center'}
+```{r Year 2022 Bike Popularity Casual Three,figures-side , fig.show="hold", out.width="30%",fig.align='center', echo=FALSE}
 graph_year2022casual_numOfBike_month_classic
 graph_year2022casual_numOfBike_month_docked
 graph_year2022casual_numOfBike_month_electric
 ```
 ### <a name="#MoreViz2" /> Year 2022 Bike Popularity, Member Interactive
 [Jump to report location this is used](#VizRef2)
-```{r figures-side Member, fig.show="hold", out.width="20%",fig.align='center'}
+```{r Year 2022 Bike Popularity Member Three, figures-side, fig.show="hold", out.width="30%",fig.align='center', echo=FALSE}
 graph_year2022member_numOfBike_month_classic
 graph_year2022member_numOfBike_month_docked
 graph_year2022member_numOfBike_month_electric
@@ -1585,7 +1586,7 @@ graph_year2022casual_numOfBike_month_biketype_sansDocked
 graph_year2022casual_numOfBike_month_biketype
 ```
 
-```{r Year 2022 Bike Preferences Member Plots, include=TRUE, eval=FALSE}
+```{r APPX: Year 2022 Bike Preferences Member Plots, include=TRUE, eval=FALSE}
 # Year 2022 Bike Popularity for Member Customers
 graph_year2022member_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Member_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
   geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
@@ -1684,7 +1685,7 @@ graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bi
 
 ```
 
-```{r Year 2022 Bike Preferences Member, include=TRUE, eval=FALSE }
+```{r APPX: Year 2022 Bike Preferences Member, include=TRUE, eval=FALSE }
 graph_year2022member_numOfBike_month_biketype_sansDocked
 ```
 
