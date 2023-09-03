@@ -3,7 +3,6 @@ title: "Cyclistic Case Study"
 author: "Steve Tamayo"
 date: "2023-09-03"
 output:
-  pdf_document: default
   html_document: default
 ---
 
