@@ -474,8 +474,8 @@ kable(year_2022_qAll_member_df,caption = "Quantiles for Length of Trip, 2022 - M
 
 The next step was to find trends in the data. 
 
-#### Trip Frequency
-<a name="Ref2" />The first thing I wanted to check was how many trips per month casual and member customers accrued. The code can be found in the [Appendix here](#Appx3).
+#### <a name="Ref2" />Trip Frequency
+The first thing I wanted to check was how many trips per month casual and member customers accrued. The code can be found in the [Appendix here](#Appx3).
 ```{r Year 2022 Customers Trip Frequency, include=FALSE}
 df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
                                            monthNum = rep(as.factor(c(1:12)),2),
@@ -526,22 +526,412 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
   )
 ```
 
-```{r View graph_year2022_tripfreq_customer,fig.width=100,fig.height=11}}
+```{r View graph_year2022_tripfreq_customer}
 graph_year2022_tripfreq_customer
 ```
 
 As you can see, the number of trips for members peaked in August, while the number of trips for casual customers peaked a month earlier in July. And while the May to July shows that there is a relatively equal amount of trips between casual customers and members, the rest of the year has far more members using the service compared to casual customers.
 
-#### Bike Preferences 
+#### <a name="VizRef1" /><a name="Ref4" />Bike Preferences 
 The next trend to check was to see the difference between each bike type and how frequent each customer used each. The code can be found in the [Appendix here](#Appx4).
 
+```{r Year 2022 Bike Preferences, include=FALSE}
 
+yearByMonth_2022_bike_type_Casual_df <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+  monthNum = c(1:12),
+  classic_bike = c(
+    sum(jan_2022_bike_type_Casual_df$classic_bike),
+    sum(feb_2022_bike_type_Casual_df$classic_bike),
+    sum(mar_2022_bike_type_Casual_df$classic_bike),
+    sum(apr_2022_bike_type_Casual_df$classic_bike),
+    sum(may_2022_bike_type_Casual_df$classic_bike),
+    sum(jun_2022_bike_type_Casual_df$classic_bike),
+    sum(jul_2022_bike_type_Casual_df$classic_bike),
+    sum(aug_2022_bike_type_Casual_df$classic_bike),
+    sum(sep_2022_bike_type_Casual_df$classic_bike),
+    sum(oct_2022_bike_type_Casual_df$classic_bike),
+    sum(nov_2022_bike_type_Casual_df$classic_bike),
+    sum(dec_2022_bike_type_Casual_df$classic_bike)
+  ) ,
+  docked_bike = c(
+    sum(jan_2022_bike_type_Casual_df$docked_bike),
+    sum(feb_2022_bike_type_Casual_df$docked_bike),
+    sum(mar_2022_bike_type_Casual_df$docked_bike),
+    sum(apr_2022_bike_type_Casual_df$docked_bike),
+    sum(may_2022_bike_type_Casual_df$docked_bike),
+    sum(jun_2022_bike_type_Casual_df$docked_bike),
+    sum(jul_2022_bike_type_Casual_df$docked_bike),
+    sum(aug_2022_bike_type_Casual_df$docked_bike),
+    sum(sep_2022_bike_type_Casual_df$docked_bike),
+    sum(oct_2022_bike_type_Casual_df$docked_bike),
+    sum(nov_2022_bike_type_Casual_df$docked_bike),
+    sum(dec_2022_bike_type_Casual_df$docked_bike)
+  ) ,
+  electric_bike = c(
+    sum(jan_2022_bike_type_Casual_df$electric_bike),
+    sum(feb_2022_bike_type_Casual_df$electric_bike),
+    sum(mar_2022_bike_type_Casual_df$electric_bike),
+    sum(apr_2022_bike_type_Casual_df$electric_bike),
+    sum(may_2022_bike_type_Casual_df$electric_bike),
+    sum(jun_2022_bike_type_Casual_df$electric_bike),
+    sum(jul_2022_bike_type_Casual_df$electric_bike),
+    sum(aug_2022_bike_type_Casual_df$electric_bike),
+    sum(sep_2022_bike_type_Casual_df$electric_bike),
+    sum(oct_2022_bike_type_Casual_df$electric_bike),
+    sum(nov_2022_bike_type_Casual_df$electric_bike),
+    sum(dec_2022_bike_type_Casual_df$electric_bike)
+  ),
+  total = c( 
+    sum(jan_2022_bike_type_Casual_df$classic_bike) + sum(jan_2022_bike_type_Casual_df$docked_bike) + sum(jan_2022_bike_type_Casual_df$electric_bike),
+    sum(feb_2022_bike_type_Casual_df$classic_bike) + sum(feb_2022_bike_type_Casual_df$docked_bike) + sum(feb_2022_bike_type_Casual_df$electric_bike),
+    sum(mar_2022_bike_type_Casual_df$classic_bike) + sum(mar_2022_bike_type_Casual_df$docked_bike) + sum(mar_2022_bike_type_Casual_df$electric_bike),
+    sum(apr_2022_bike_type_Casual_df$classic_bike) + sum(apr_2022_bike_type_Casual_df$docked_bike) + sum(apr_2022_bike_type_Casual_df$electric_bike),
+    sum(may_2022_bike_type_Casual_df$classic_bike) + sum(may_2022_bike_type_Casual_df$docked_bike) + sum(may_2022_bike_type_Casual_df$electric_bike),
+    sum(jun_2022_bike_type_Casual_df$classic_bike) + sum(jun_2022_bike_type_Casual_df$docked_bike) + sum(jun_2022_bike_type_Casual_df$electric_bike),
+    sum(jul_2022_bike_type_Casual_df$classic_bike) + sum(jul_2022_bike_type_Casual_df$docked_bike) + sum(jul_2022_bike_type_Casual_df$electric_bike),
+    sum(aug_2022_bike_type_Casual_df$classic_bike) + sum(aug_2022_bike_type_Casual_df$docked_bike) + sum(aug_2022_bike_type_Casual_df$electric_bike),
+    sum(sep_2022_bike_type_Casual_df$classic_bike) + sum(sep_2022_bike_type_Casual_df$docked_bike) + sum(sep_2022_bike_type_Casual_df$electric_bike),
+    sum(oct_2022_bike_type_Casual_df$classic_bike) + sum(oct_2022_bike_type_Casual_df$docked_bike) + sum(oct_2022_bike_type_Casual_df$electric_bike),
+    sum(nov_2022_bike_type_Casual_df$classic_bike) + sum(nov_2022_bike_type_Casual_df$docked_bike) + sum(nov_2022_bike_type_Casual_df$electric_bike),
+    sum(dec_2022_bike_type_Casual_df$classic_bike) + sum(dec_2022_bike_type_Casual_df$docked_bike) + sum(dec_2022_bike_type_Casual_df$electric_bike)
+  )
+)
+
+yearByMonth_2022_bike_type_Member_df <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+  monthNum = c(1:12),
+  classic_bike = c(
+    sum(jan_2022_bike_type_Member_df$classic_bike),
+    sum(feb_2022_bike_type_Member_df$classic_bike),
+    sum(mar_2022_bike_type_Member_df$classic_bike),
+    sum(apr_2022_bike_type_Member_df$classic_bike),
+    sum(may_2022_bike_type_Member_df$classic_bike),
+    sum(jun_2022_bike_type_Member_df$classic_bike),
+    sum(jul_2022_bike_type_Member_df$classic_bike),
+    sum(aug_2022_bike_type_Member_df$classic_bike),
+    sum(sep_2022_bike_type_Member_df$classic_bike),
+    sum(oct_2022_bike_type_Member_df$classic_bike),
+    sum(nov_2022_bike_type_Member_df$classic_bike),
+    sum(dec_2022_bike_type_Member_df$classic_bike)
+  ) ,
+  docked_bike = c(
+    sum(jan_2022_bike_type_Member_df$docked_bike),
+    sum(feb_2022_bike_type_Member_df$docked_bike),
+    sum(mar_2022_bike_type_Member_df$docked_bike),
+    sum(apr_2022_bike_type_Member_df$docked_bike),
+    sum(may_2022_bike_type_Member_df$docked_bike),
+    sum(jun_2022_bike_type_Member_df$docked_bike),
+    sum(jul_2022_bike_type_Member_df$docked_bike),
+    sum(aug_2022_bike_type_Member_df$docked_bike),
+    sum(sep_2022_bike_type_Member_df$docked_bike),
+    sum(oct_2022_bike_type_Member_df$docked_bike),
+    sum(nov_2022_bike_type_Member_df$docked_bike),
+    sum(dec_2022_bike_type_Member_df$docked_bike)
+  ) ,
+  electric_bike = c(
+    sum(jan_2022_bike_type_Member_df$electric_bike),
+    sum(feb_2022_bike_type_Member_df$electric_bike),
+    sum(mar_2022_bike_type_Member_df$electric_bike),
+    sum(apr_2022_bike_type_Member_df$electric_bike),
+    sum(may_2022_bike_type_Member_df$electric_bike),
+    sum(jun_2022_bike_type_Member_df$electric_bike),
+    sum(jul_2022_bike_type_Member_df$electric_bike),
+    sum(aug_2022_bike_type_Member_df$electric_bike),
+    sum(sep_2022_bike_type_Member_df$electric_bike),
+    sum(oct_2022_bike_type_Member_df$electric_bike),
+    sum(nov_2022_bike_type_Member_df$electric_bike),
+    sum(dec_2022_bike_type_Member_df$electric_bike)
+  ),
+  total = c( 
+    sum(jan_2022_bike_type_Member_df$classic_bike) + sum(jan_2022_bike_type_Member_df$docked_bike) + sum(jan_2022_bike_type_Member_df$electric_bike),
+    sum(feb_2022_bike_type_Member_df$classic_bike) + sum(feb_2022_bike_type_Member_df$docked_bike) + sum(feb_2022_bike_type_Member_df$electric_bike),
+    sum(mar_2022_bike_type_Member_df$classic_bike) + sum(mar_2022_bike_type_Member_df$docked_bike) + sum(mar_2022_bike_type_Member_df$electric_bike),
+    sum(apr_2022_bike_type_Member_df$classic_bike) + sum(apr_2022_bike_type_Member_df$docked_bike) + sum(apr_2022_bike_type_Member_df$electric_bike),
+    sum(may_2022_bike_type_Member_df$classic_bike) + sum(may_2022_bike_type_Member_df$docked_bike) + sum(may_2022_bike_type_Member_df$electric_bike),
+    sum(jun_2022_bike_type_Member_df$classic_bike) + sum(jun_2022_bike_type_Member_df$docked_bike) + sum(jun_2022_bike_type_Member_df$electric_bike),
+    sum(jul_2022_bike_type_Member_df$classic_bike) + sum(jul_2022_bike_type_Member_df$docked_bike) + sum(jul_2022_bike_type_Member_df$electric_bike),
+    sum(aug_2022_bike_type_Member_df$classic_bike) + sum(aug_2022_bike_type_Member_df$docked_bike) + sum(aug_2022_bike_type_Member_df$electric_bike),
+    sum(sep_2022_bike_type_Member_df$classic_bike) + sum(sep_2022_bike_type_Member_df$docked_bike) + sum(sep_2022_bike_type_Member_df$electric_bike),
+    sum(oct_2022_bike_type_Member_df$classic_bike) + sum(oct_2022_bike_type_Member_df$docked_bike) + sum(oct_2022_bike_type_Member_df$electric_bike),
+    sum(nov_2022_bike_type_Member_df$classic_bike) + sum(nov_2022_bike_type_Member_df$docked_bike) + sum(nov_2022_bike_type_Member_df$electric_bike),
+    sum(dec_2022_bike_type_Member_df$classic_bike) + sum(dec_2022_bike_type_Member_df$docked_bike) + sum(dec_2022_bike_type_Member_df$electric_bike)
+  )
+)
+
+# Adjust Table for Bar Plot
+yearByMonth_2022_bike_type_Casual_subgrouped_df <-data.frame(biketype = rep(c("classic","docked","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Casual_df$monthNum,3),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Casual_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$docked_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$electric_bike)
+                                                             )
+
+yearByMonth_2022_bike_type_Member_subgrouped_df <-data.frame(biketype = rep(c("classic","docked","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Member_df$monthNum,3),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Member_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Member_df$docked_bike,
+                                                                             yearByMonth_2022_bike_type_Member_df$electric_bike)
+)
+
+# Get Year By Month but remove docked
+yearByMonth_2022_bike_type_Casual_subgrouped_sansDocked_df <-data.frame(biketype = rep(c("classic","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Casual_df$monthNum,2),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Casual_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$electric_bike)
+)
+
+# Get Year By Month but remove docked
+yearByMonth_2022_bike_type_Member_subgrouped_sansDocked_df <-data.frame(biketype = rep(c("classic","electric"),each=12),
+                                                                        monthNum = rep(yearByMonth_2022_bike_type_Member_df$monthNum,2),
+                                                                        num_of_bike = c(yearByMonth_2022_bike_type_Member_df$classic_bike,
+                                                                                        yearByMonth_2022_bike_type_Member_df$electric_bike)
+)
+
+
+
+```
+
+```{r Year 2022 Bike Preferences Casual Plots, include = FALSE}
+# Used to label plots
+days_of_the_week <- c("Sunday", "Monday", "Tuesday", "Wednesday", 
+                      "Thursday", "Friday", "Saturday")
+
+# Year 2022 Bike Popularity for Casual Customers
+graph_year2022casual_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Casual",
+       subtitle = "Amount of each bike used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "*K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+
+# Year 2022 Bike Popularity for Casual Customers - Sans Docked
+graph_year2022casual_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_sansDocked_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Casual**",
+       subtitle = "Amount of either classic or electic bike used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "**This graph does not feature docked bikes, *K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )+
+  scale_fill_manual(values = c("#F8766D","#619CFF"))
+
+# Individual
+graph_year2022casual_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=classic_bike)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1), fill = "#F8766D")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Classic",
+       subtitle = "Amount of classic bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(classic_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+graph_year2022casual_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=docked_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#00BA38")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Docked",
+       subtitle = "Amount of docked bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(docked_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+
+graph_year2022casual_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=electric_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#619CFF")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Electric",
+       subtitle = "Amount of electric bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(electric_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+```
+
+```{r Year 2022 Bike Popularity Casual}
+graph_year2022casual_numOfBike_month_biketype_sansDocked
+graph_year2022casual_numOfBike_month_biketype
+```
+You can click between the two preview graphs to see the data without the docked bikes.
+
+From these graphs, we can see that, aside from the month of May and June, casual rider use more electric bikes compared to classic. Furthermore, from July to December, there is a significant increase of electric bikes being used over classic bikes.
+
+To see a deeper dive into this data, you can [click here](#MoreViz1) to view each bike with number labels.
+
+```{r Year 2022 Bike Preferences Member Plots, include = FALSE}
+# Year 2022 Bike Popularity for Member Customers
+graph_year2022member_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Member_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Member",
+       subtitle = "Amount of each bike used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "*K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+
+# Year 2022 Bike Popularity for Member Customers - Sans Docked
+graph_year2022member_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMonth_2022_bike_type_Member_subgrouped_sansDocked_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Member**",
+       subtitle = "Amount of either classic or electic bike used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "**This graph does not feature docked bikes, *K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )+
+  scale_fill_manual(values = c("#F8766D","#619CFF"))
+
+# Individual
+graph_year2022member_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=classic_bike)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1), fill = "#F8766D")+
+  labs(title = "Year 2022 Bike Popularity, Member - Classic",
+       subtitle = "Amount of classic bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(classic_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+graph_year2022member_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=docked_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#00BA38")+
+  labs(title = "Year 2022 Bike Popularity, Member - Docked",
+       subtitle = "Amount of docked bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(docked_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+
+graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=electric_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#619CFF")+
+  labs(title = "Year 2022 Bike Popularity, Member - Electric",
+       subtitle = "Amount of electric bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(electric_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+```
+
+<a name="VizRef2" />
+```{r Year 2022 Bike Preferences Member }
+graph_year2022member_numOfBike_month_biketype_sansDocked
+```
+From this graph, we can see that, there are more classic bikes used compared to electric in from January to August, but then electric bikes are used more often from September to December.
+
+This graph does not feature docked bikes due to members not using docked bikes. To see a deeper dive into this data, you can [click here](#MoreViz2) to view each bike with number labels.
 
 #### Trip Length
 The final trend I wanted to check was to see the common length of trip between the customer types. However, I didn't want to take the average of length of every trip, but instead use quantiles to get a more accurate look at the trip lengths without taking outliers into consideration. The code can be found in the [Appendix here](#Appx5).
 
 
+
 ## <a name="ptD" />D. Additional Supporting Visualizations
+### <a name="#MoreViz1" /> Year 2022 Bike Popularity, Casual Interactive
+[Jump to report location this is used](#VizRef1)
+```{r figures-side Casual, fig.show="hold", out.width="20%",fig.align='center'}
+graph_year2022casual_numOfBike_month_classic
+graph_year2022casual_numOfBike_month_docked
+graph_year2022casual_numOfBike_month_electric
+```
+### <a name="#MoreViz2" /> Year 2022 Bike Popularity, Member Interactive
+[Jump to report location this is used](#VizRef2)
+```{r figures-side Member, fig.show="hold", out.width="20%",fig.align='center'}
+graph_year2022member_numOfBike_month_classic
+graph_year2022member_numOfBike_month_docked
+graph_year2022member_numOfBike_month_electric
+```
+
 
 ## <a name="ptE" />E. Recommendations
 
@@ -877,7 +1267,7 @@ year_2022_bike_type_Casual_df <- find_bike_data(year_2022_clean$rideable_type,ye
 year_2022_bike_type_Member_df <- find_bike_data(year_2022_clean$rideable_type,year_2022_clean$member_casual,"member",year_2022_clean$day_of_week)
 ```
 
-#### <a name="Appx3"/>Applying Functions to Clean Data
+#### <a name="Appx3"/>Year 2022 Customer Trip Frequency
 [Jump to report location this is used](#Ref3)
 ```{r APPX: Year 2022 Customers Trip Frequency, include=TRUE, eval=FALSE}
 df_customer_numOfTrip_vMonth <- data.frame(customer_type = rep(c("casual","member"),each=12),
@@ -928,3 +1318,375 @@ graph_year2022_tripfreq_customer <- ggplot(data=df_customer_numOfTrip_vMonth,aes
         plot.subtitle = element_text(size = 14)
   )
 ```
+
+#### <a name="Appx4"/>Year 2022 Bike Preferences, Casual and Member
+[Jump to report location this is used](#Ref4)
+```{r APPX: Year 2022 Bike Preferences, include=TRUE, eval=FALSE}
+
+yearByMonth_2022_bike_type_Casual_df <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+  monthNum = c(1:12),
+  classic_bike = c(
+    sum(jan_2022_bike_type_Casual_df$classic_bike),
+    sum(feb_2022_bike_type_Casual_df$classic_bike),
+    sum(mar_2022_bike_type_Casual_df$classic_bike),
+    sum(apr_2022_bike_type_Casual_df$classic_bike),
+    sum(may_2022_bike_type_Casual_df$classic_bike),
+    sum(jun_2022_bike_type_Casual_df$classic_bike),
+    sum(jul_2022_bike_type_Casual_df$classic_bike),
+    sum(aug_2022_bike_type_Casual_df$classic_bike),
+    sum(sep_2022_bike_type_Casual_df$classic_bike),
+    sum(oct_2022_bike_type_Casual_df$classic_bike),
+    sum(nov_2022_bike_type_Casual_df$classic_bike),
+    sum(dec_2022_bike_type_Casual_df$classic_bike)
+  ) ,
+  docked_bike = c(
+    sum(jan_2022_bike_type_Casual_df$docked_bike),
+    sum(feb_2022_bike_type_Casual_df$docked_bike),
+    sum(mar_2022_bike_type_Casual_df$docked_bike),
+    sum(apr_2022_bike_type_Casual_df$docked_bike),
+    sum(may_2022_bike_type_Casual_df$docked_bike),
+    sum(jun_2022_bike_type_Casual_df$docked_bike),
+    sum(jul_2022_bike_type_Casual_df$docked_bike),
+    sum(aug_2022_bike_type_Casual_df$docked_bike),
+    sum(sep_2022_bike_type_Casual_df$docked_bike),
+    sum(oct_2022_bike_type_Casual_df$docked_bike),
+    sum(nov_2022_bike_type_Casual_df$docked_bike),
+    sum(dec_2022_bike_type_Casual_df$docked_bike)
+  ) ,
+  electric_bike = c(
+    sum(jan_2022_bike_type_Casual_df$electric_bike),
+    sum(feb_2022_bike_type_Casual_df$electric_bike),
+    sum(mar_2022_bike_type_Casual_df$electric_bike),
+    sum(apr_2022_bike_type_Casual_df$electric_bike),
+    sum(may_2022_bike_type_Casual_df$electric_bike),
+    sum(jun_2022_bike_type_Casual_df$electric_bike),
+    sum(jul_2022_bike_type_Casual_df$electric_bike),
+    sum(aug_2022_bike_type_Casual_df$electric_bike),
+    sum(sep_2022_bike_type_Casual_df$electric_bike),
+    sum(oct_2022_bike_type_Casual_df$electric_bike),
+    sum(nov_2022_bike_type_Casual_df$electric_bike),
+    sum(dec_2022_bike_type_Casual_df$electric_bike)
+  ),
+  total = c( 
+    sum(jan_2022_bike_type_Casual_df$classic_bike) + sum(jan_2022_bike_type_Casual_df$docked_bike) + sum(jan_2022_bike_type_Casual_df$electric_bike),
+    sum(feb_2022_bike_type_Casual_df$classic_bike) + sum(feb_2022_bike_type_Casual_df$docked_bike) + sum(feb_2022_bike_type_Casual_df$electric_bike),
+    sum(mar_2022_bike_type_Casual_df$classic_bike) + sum(mar_2022_bike_type_Casual_df$docked_bike) + sum(mar_2022_bike_type_Casual_df$electric_bike),
+    sum(apr_2022_bike_type_Casual_df$classic_bike) + sum(apr_2022_bike_type_Casual_df$docked_bike) + sum(apr_2022_bike_type_Casual_df$electric_bike),
+    sum(may_2022_bike_type_Casual_df$classic_bike) + sum(may_2022_bike_type_Casual_df$docked_bike) + sum(may_2022_bike_type_Casual_df$electric_bike),
+    sum(jun_2022_bike_type_Casual_df$classic_bike) + sum(jun_2022_bike_type_Casual_df$docked_bike) + sum(jun_2022_bike_type_Casual_df$electric_bike),
+    sum(jul_2022_bike_type_Casual_df$classic_bike) + sum(jul_2022_bike_type_Casual_df$docked_bike) + sum(jul_2022_bike_type_Casual_df$electric_bike),
+    sum(aug_2022_bike_type_Casual_df$classic_bike) + sum(aug_2022_bike_type_Casual_df$docked_bike) + sum(aug_2022_bike_type_Casual_df$electric_bike),
+    sum(sep_2022_bike_type_Casual_df$classic_bike) + sum(sep_2022_bike_type_Casual_df$docked_bike) + sum(sep_2022_bike_type_Casual_df$electric_bike),
+    sum(oct_2022_bike_type_Casual_df$classic_bike) + sum(oct_2022_bike_type_Casual_df$docked_bike) + sum(oct_2022_bike_type_Casual_df$electric_bike),
+    sum(nov_2022_bike_type_Casual_df$classic_bike) + sum(nov_2022_bike_type_Casual_df$docked_bike) + sum(nov_2022_bike_type_Casual_df$electric_bike),
+    sum(dec_2022_bike_type_Casual_df$classic_bike) + sum(dec_2022_bike_type_Casual_df$docked_bike) + sum(dec_2022_bike_type_Casual_df$electric_bike)
+  )
+)
+
+yearByMonth_2022_bike_type_Member_df <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+  monthNum = c(1:12),
+  classic_bike = c(
+    sum(jan_2022_bike_type_Member_df$classic_bike),
+    sum(feb_2022_bike_type_Member_df$classic_bike),
+    sum(mar_2022_bike_type_Member_df$classic_bike),
+    sum(apr_2022_bike_type_Member_df$classic_bike),
+    sum(may_2022_bike_type_Member_df$classic_bike),
+    sum(jun_2022_bike_type_Member_df$classic_bike),
+    sum(jul_2022_bike_type_Member_df$classic_bike),
+    sum(aug_2022_bike_type_Member_df$classic_bike),
+    sum(sep_2022_bike_type_Member_df$classic_bike),
+    sum(oct_2022_bike_type_Member_df$classic_bike),
+    sum(nov_2022_bike_type_Member_df$classic_bike),
+    sum(dec_2022_bike_type_Member_df$classic_bike)
+  ) ,
+  docked_bike = c(
+    sum(jan_2022_bike_type_Member_df$docked_bike),
+    sum(feb_2022_bike_type_Member_df$docked_bike),
+    sum(mar_2022_bike_type_Member_df$docked_bike),
+    sum(apr_2022_bike_type_Member_df$docked_bike),
+    sum(may_2022_bike_type_Member_df$docked_bike),
+    sum(jun_2022_bike_type_Member_df$docked_bike),
+    sum(jul_2022_bike_type_Member_df$docked_bike),
+    sum(aug_2022_bike_type_Member_df$docked_bike),
+    sum(sep_2022_bike_type_Member_df$docked_bike),
+    sum(oct_2022_bike_type_Member_df$docked_bike),
+    sum(nov_2022_bike_type_Member_df$docked_bike),
+    sum(dec_2022_bike_type_Member_df$docked_bike)
+  ) ,
+  electric_bike = c(
+    sum(jan_2022_bike_type_Member_df$electric_bike),
+    sum(feb_2022_bike_type_Member_df$electric_bike),
+    sum(mar_2022_bike_type_Member_df$electric_bike),
+    sum(apr_2022_bike_type_Member_df$electric_bike),
+    sum(may_2022_bike_type_Member_df$electric_bike),
+    sum(jun_2022_bike_type_Member_df$electric_bike),
+    sum(jul_2022_bike_type_Member_df$electric_bike),
+    sum(aug_2022_bike_type_Member_df$electric_bike),
+    sum(sep_2022_bike_type_Member_df$electric_bike),
+    sum(oct_2022_bike_type_Member_df$electric_bike),
+    sum(nov_2022_bike_type_Member_df$electric_bike),
+    sum(dec_2022_bike_type_Member_df$electric_bike)
+  ),
+  total = c( 
+    sum(jan_2022_bike_type_Member_df$classic_bike) + sum(jan_2022_bike_type_Member_df$docked_bike) + sum(jan_2022_bike_type_Member_df$electric_bike),
+    sum(feb_2022_bike_type_Member_df$classic_bike) + sum(feb_2022_bike_type_Member_df$docked_bike) + sum(feb_2022_bike_type_Member_df$electric_bike),
+    sum(mar_2022_bike_type_Member_df$classic_bike) + sum(mar_2022_bike_type_Member_df$docked_bike) + sum(mar_2022_bike_type_Member_df$electric_bike),
+    sum(apr_2022_bike_type_Member_df$classic_bike) + sum(apr_2022_bike_type_Member_df$docked_bike) + sum(apr_2022_bike_type_Member_df$electric_bike),
+    sum(may_2022_bike_type_Member_df$classic_bike) + sum(may_2022_bike_type_Member_df$docked_bike) + sum(may_2022_bike_type_Member_df$electric_bike),
+    sum(jun_2022_bike_type_Member_df$classic_bike) + sum(jun_2022_bike_type_Member_df$docked_bike) + sum(jun_2022_bike_type_Member_df$electric_bike),
+    sum(jul_2022_bike_type_Member_df$classic_bike) + sum(jul_2022_bike_type_Member_df$docked_bike) + sum(jul_2022_bike_type_Member_df$electric_bike),
+    sum(aug_2022_bike_type_Member_df$classic_bike) + sum(aug_2022_bike_type_Member_df$docked_bike) + sum(aug_2022_bike_type_Member_df$electric_bike),
+    sum(sep_2022_bike_type_Member_df$classic_bike) + sum(sep_2022_bike_type_Member_df$docked_bike) + sum(sep_2022_bike_type_Member_df$electric_bike),
+    sum(oct_2022_bike_type_Member_df$classic_bike) + sum(oct_2022_bike_type_Member_df$docked_bike) + sum(oct_2022_bike_type_Member_df$electric_bike),
+    sum(nov_2022_bike_type_Member_df$classic_bike) + sum(nov_2022_bike_type_Member_df$docked_bike) + sum(nov_2022_bike_type_Member_df$electric_bike),
+    sum(dec_2022_bike_type_Member_df$classic_bike) + sum(dec_2022_bike_type_Member_df$docked_bike) + sum(dec_2022_bike_type_Member_df$electric_bike)
+  )
+)
+
+# Adjust Table for Bar Plot
+yearByMonth_2022_bike_type_Casual_subgrouped_df <-data.frame(biketype = rep(c("classic","docked","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Casual_df$monthNum,3),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Casual_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$docked_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$electric_bike)
+                                                             )
+
+yearByMonth_2022_bike_type_Member_subgrouped_df <-data.frame(biketype = rep(c("classic","docked","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Member_df$monthNum,3),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Member_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Member_df$docked_bike,
+                                                                             yearByMonth_2022_bike_type_Member_df$electric_bike)
+)
+
+# Get Year By Month but remove docked
+yearByMonth_2022_bike_type_Casual_subgrouped_sansDocked_df <-data.frame(biketype = rep(c("classic","electric"),each=12),
+                                                             monthNum = rep(yearByMonth_2022_bike_type_Casual_df$monthNum,2),
+                                                             num_of_bike = c(yearByMonth_2022_bike_type_Casual_df$classic_bike,
+                                                                             yearByMonth_2022_bike_type_Casual_df$electric_bike)
+)
+
+# Get Year By Month but remove docked
+yearByMonth_2022_bike_type_Member_subgrouped_sansDocked_df <-data.frame(biketype = rep(c("classic","electric"),each=12),
+                                                                        monthNum = rep(yearByMonth_2022_bike_type_Member_df$monthNum,2),
+                                                                        num_of_bike = c(yearByMonth_2022_bike_type_Member_df$classic_bike,
+                                                                                        yearByMonth_2022_bike_type_Member_df$electric_bike)
+)
+
+
+
+```
+
+```{r APPX: Year 2022 Bike Preferences Casual Plots, include=TRUE, eval=FALSE}
+# Used to label plots
+days_of_the_week <- c("Sunday", "Monday", "Tuesday", "Wednesday", 
+                      "Thursday", "Friday", "Saturday")
+
+# Year 2022 Bike Popularity for Casual Customers
+graph_year2022casual_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Casual",
+       subtitle = "Amount of each bike used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "*K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+
+# Year 2022 Bike Popularity for Casual Customers - Sans Docked
+graph_year2022casual_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMonth_2022_bike_type_Casual_subgrouped_sansDocked_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Casual**",
+       subtitle = "Amount of either classic or electic bike used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "**This graph does not feature docked bikes, *K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )+
+  scale_fill_manual(values = c("#F8766D","#619CFF"))
+
+# Individual
+graph_year2022casual_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=classic_bike)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1), fill = "#F8766D")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Classic",
+       subtitle = "Amount of classic bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(classic_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+graph_year2022casual_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=docked_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#00BA38")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Docked",
+       subtitle = "Amount of docked bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(docked_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+
+graph_year2022casual_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bike_type_Casual_df, aes(x=monthNum,y=electric_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#619CFF")+
+  labs(title = "Year 2022 Bike Popularity, Casual - Electric",
+       subtitle = "Amount of electric bikes used by Casual Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(electric_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+```
+
+```{r APPX: Year 2022 Bike Popularity Casual, include=TRUE, eval=FALSE}
+graph_year2022casual_numOfBike_month_biketype_sansDocked
+graph_year2022casual_numOfBike_month_biketype
+```
+
+```{r Year 2022 Bike Preferences Member Plots, include=TRUE, eval=FALSE}
+# Year 2022 Bike Popularity for Member Customers
+graph_year2022member_numOfBike_month_biketype <- ggplot(data=yearByMonth_2022_bike_type_Member_subgrouped_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Member",
+       subtitle = "Amount of each bike used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "*K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )
+
+# Year 2022 Bike Popularity for Member Customers - Sans Docked
+graph_year2022member_numOfBike_month_biketype_sansDocked <- ggplot(data=yearByMonth_2022_bike_type_Member_subgrouped_sansDocked_df,aes(x=monthNum,y=num_of_bike, fill = biketype)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1))+
+  labs(title = "Year 2022 Bike Popularity, Member**",
+       subtitle = "Amount of either classic or electic bike used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption = "**This graph does not feature docked bikes, *K stands for 1000") +
+  #geom_text(aes(label = signif(num_of_bike)), nudge_y = 3) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  )  +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14)
+  )+
+  scale_fill_manual(values = c("#F8766D","#619CFF"))
+
+# Individual
+graph_year2022member_numOfBike_month_classic <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=classic_bike)) +
+  geom_bar(stat = "identity",width=.9,position=position_dodge(width=1), fill = "#F8766D")+
+  labs(title = "Year 2022 Bike Popularity, Member - Classic",
+       subtitle = "Amount of classic bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(classic_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+graph_year2022member_numOfBike_month_docked <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=docked_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#00BA38")+
+  labs(title = "Year 2022 Bike Popularity, Member - Docked",
+       subtitle = "Amount of docked bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(docked_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+
+graph_year2022member_numOfBike_month_electric <- ggplot(data=yearByMonth_2022_bike_type_Member_df, aes(x=monthNum,y=electric_bike)) +
+  geom_bar(stat = "identity",width=0.9,position=position_dodge(width=1), fill="#619CFF")+
+  labs(title = "Year 2022 Bike Popularity, Member - Electric",
+       subtitle = "Amount of electric bikes used by Member Customers",
+       x="Month",
+       y="Amount of Bikes Used (K*)",
+       caption="K stands for 1000") +
+  geom_text(aes(label = paste(c(floor(electric_bike/ 100)/10)," K",sep="")),
+            position = position_dodge2(width = 0.9, preserve = "single"),size=3.5,hjust= .5,vjust=-.75,angle=0) +
+  scale_y_continuous(limits = c(0,250000) ,labels = label_number(suffix = " K", scale = 1e-3)) +
+  scale_x_continuous(
+    breaks = seq_along(month.name), 
+    labels = month.abb
+  ) +
+  theme(plot.title = element_text(size = 24),
+        plot.subtitle = element_text(size = 14),
+        legend.position = "none"
+  ) 
+
+```
+
+```{r Year 2022 Bike Preferences Member, include=TRUE, eval=FALSE }
+graph_year2022member_numOfBike_month_biketype_sansDocked
+```
+
+#### <a name="Appx5"/>Trip Length 
+[Jump to report location this is used](#Ref5)
